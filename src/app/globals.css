@@ -1,26 +1,166 @@
-@import "tailwindcss";
+/*
+ * `source("../")` limita a varredura de classes ao diretório `src/`.
+ *
+ * Sem isso o Tailwind varre o repositório inteiro e encontra candidatos onde
+ * não há classe nenhuma: `shadow_port` em supabase/config.toml fazia nascer um
+ * utilitário `.shadow` com box-shadow de verdade no bundle — justamente o que
+ * o projeto não usa.
+ */
+@import "tailwindcss" source("../");
 
+/* ==========================================================================
+   TOKENS
+   Bloco copiado do handoff de design com os valores intactos. Os nomes em
+   inglês são a fonte da verdade compartilhada com o design; o mapeamento
+   para utilitários Tailwind (em português) vem no @theme abaixo.
+
+   Única alteração em relação ao handoff: as três famílias apontam para as
+   variáveis geradas pelo next/font/google em vez de nomear a família direto,
+   porque a fonte é auto-hospedada com nome de família gerado no build.
+   ========================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* superfícies */
+  --paper: #fafaf8; /* fundo dominante — off-white quente, não branco puro */
+  --white: #ffffff; /* cartões e superfícies elevadas */
+
+  /* tinta */
+  --ink: #0a0a0a; /* texto principal, números-herói, traço */
+  --ink-2: #3d3d3a; /* texto secundário */
+  /*
+   * DESVIO DO HANDOFF — decidir com o design.
+   *
+   * O valor entregue era #77776F. Sobre --paper ele dá 4,32:1, abaixo do
+   * mínimo AA de 4,5:1 para texto pequeno — e --ink-3 é justamente a cor dos
+   * rótulos de 11px e dos metadados de 13px. (Sobre --white dava 4,51:1, no
+   * fio da navalha; o fundo dominante do projeto é o papel, que reprova.)
+   *
+   * #74746C é o valor mais claro que atinge AA mantendo o cinza quente:
+   * 4,51:1 sobre papel e 4,71:1 sobre branco. São três passos de escurecimento,
+   * imperceptíveis a olho nu.
+   *
+   * Para reverter, basta trocar de volta — e assumir a reprovação de contraste.
+   */
+  --ink-3: #74746c; /* rótulos, metadados, estados desabilitados */
+
+  /* linhas */
+  --line: #e4e4de; /* bordas de cartão */
+  --line-2: #f0efea; /* divisores internos */
+
+  /* cor funcional — SÓ onde há dado */
+  --trace: #00a650; /* traçado da corrida no mapa/miniatura */
+  --z1: #b6ecf5; /* zona 1 */
+  --z2: #2fb3e0; /* zona 2 */
+  --z3: #f58a00; /* zona 3 */
+  --z4: #f0402c; /* zona 4 */
+  --z5: #b3103f; /* zona 5 */
+
+  /* raio */
+  --r: 22px; /* cartões */
+  --r-sm: 14px; /* elementos menores */
+  --r-home: 24px; /* cartões na home */
+  --r-sm-home: 16px; /* elementos menores na home */
+
+  /* tipografia */
+  --ui: var(--fonte-archivo), system-ui, sans-serif; /* interface, títulos, rótulos */
+  --txt: var(--fonte-inter), system-ui, sans-serif; /* texto corrido */
+  --num: var(--fonte-overpass), system-ui, sans-serif; /* TODOS os números */
 }
 
+/* ==========================================================================
+   PONTE PARA O TAILWIND
+   Só o que está aqui existe como utilitário. Nenhuma cor fora dos tokens.
+   ========================================================================== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-papel: var(--paper);
+  --color-branco: var(--white);
+
+  --color-tinta: var(--ink);
+  --color-tinta-2: var(--ink-2);
+  --color-tinta-3: var(--ink-3);
+
+  --color-linha: var(--line);
+  --color-linha-2: var(--line-2);
+
+  --color-tracado: var(--trace);
+  --color-z1: var(--z1);
+  --color-z2: var(--z2);
+  --color-z3: var(--z3);
+  --color-z4: var(--z4);
+  --color-z5: var(--z5);
+
+  --radius-cartao: var(--r);
+  --radius-pequeno: var(--r-sm);
+  --radius-cartao-home: var(--r-home);
+  --radius-pequeno-home: var(--r-sm-home);
+
+  --font-ui: var(--ui);
+  --font-texto: var(--txt);
+  --font-numero: var(--num);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  html {
+    /* Sem dark mode: o navegador não deve reinterpretar as superfícies. */
+    color-scheme: only light;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--txt);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Foco sempre visível — requisito de navegação por teclado. */
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--ink);
+    color: var(--paper);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   UTILITÁRIOS
+   ========================================================================== */
+
+/* Todo número da interface passa por aqui: Overpass + tabular-nums. */
+@utility numeros {
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Rótulo de seção: Archivo, caixa-alta, corpo pequeno. */
+@utility rotulo {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
