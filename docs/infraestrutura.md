@@ -4,6 +4,39 @@ Tudo em conta própria do RUA, no e-mail `hojetemrua@gmail.com`. Nada é
 compartilhado com outro projeto: nem projeto do Supabase, nem projeto do
 Vercel, nem chave do Resend, nem porta local.
 
+## Estado atual
+
+| serviço | estado | identificação |
+|---|---|---|
+| Supabase | no ar, migrações aplicadas | `meqlshmxfzvpctaieopj` · org `Rua` · `sa-east-1` |
+| Vercel | no ar, em produção | `rua4/rua` · <https://rua-ten.vercel.app> |
+| Resend | chave ativa, **modo de teste** | nenhum domínio verificado |
+| GitHub | **pendente** | `hojetemrua/rua` ainda não existe |
+
+Verificado ponta a ponta em produção: o painel lê o banco
+(`R$ 0 de R$ 1.000`, 0 apoiadores), o formulário grava a inscrição e o Resend
+entrega o e-mail de confirmação. Lighthouse na produção: 93 / 100 / 100 / 100.
+
+### Pendências
+
+1. **Repositório.** O token fine-grained não tem permissão de *criar*
+   repositório — isso é permissão de conta, não de repositório. Criar vazio em
+   <https://github.com/new> (dono `hojetemrua`, nome `rua`) e depois:
+   `set -a; . ./.env.deploy; set +a && git remote add origin https://github.com/hojetemrua/rua.git && git push -u origin main`
+2. **Resend em modo de teste.** Sem domínio verificado, só entrega para
+   `hojetemrua@gmail.com`; qualquer outro destinatário volta 403. Quem se
+   inscrever hoje **entra na lista mas não recebe o e-mail** — a inscrição não
+   quebra, por desenho. Verificar `rua.run` em <https://resend.com/domains> e
+   trocar `RUA_EMAIL_REMETENTE` para `Rua <oi@rua.run>`.
+3. **Copy em rascunho no ar.** O manifesto do herói e o texto de origem são
+   rascunho meu, não o texto do protótipo — e estão públicos em
+   `rua-ten.vercel.app`. Trocar em `src/conteudo/home.ts` antes de divulgar.
+4. **Custo do mês.** `transparencia_meses` tem só julho/2026, com
+   `custo_centavos = 100000`. É o número do handoff, não uma conta real
+   conferida — e **todo mês precisa de uma linha nova**, senão a home passa a
+   mostrar o mês anterior.
+5. **Sem limite de taxa** em `entrar_na_lista`. Turnstile antes de divulgar.
+
 ## Portas locais
 
 A faixa padrão do Supabase (`543xx`) já pertence a outro projeto desta máquina.
