@@ -1,26 +1,32 @@
+import type { Banco } from "./banco";
 import type { ClienteRua } from "./cliente";
 
 /**
  * Consultas do Sinal Aberto.
  *
- * Todo número da página pública sai daqui — `transparencia_meses`,
- * `niveis_sinal_aberto` e o agregado de `apoios`. Nada fixado no código, nunca.
+ * Todo número da página pública sai daqui — `niveis_apoio`,
+ * `transparencia_meses` e o agregado de `apoios`. Nada fixado no código, nunca.
+ *
+ * Os tipos vêm do banco, não escritos à mão: `pnpm --filter @rua/dados
+ * gerar-tipos` os regenera, e uma coluna renomeada quebra o build em vez de
+ * virar `undefined` em produção.
  */
 
-export type ResumoDoMes = {
-  mes: string;
-  nivel: number;
-  descricao: string;
-  custo_centavos: number;
-  arrecadado_centavos: number;
-  apoiadores: number;
-};
+export type ResumoDoMes =
+  Banco["public"]["Functions"]["resumo_sinal_aberto"]["Returns"][number];
+
+export type NivelDeApoio = Banco["public"]["Tables"]["niveis_apoio"]["Row"];
+
+export type DatasDoProjeto = Banco["public"]["Tables"]["projeto"]["Row"];
 
 /**
  * Agregado público do mês corrente.
  *
  * Vem de função `SECURITY DEFINER` porque o total e a contagem são públicos,
  * mas a linha de cada apoio não: `anon` não tem leitura em `apoios`.
+ *
+ * A taxa que volta aqui é ESTIMADA em 13%, porque o mês está aberto. A real
+ * vem do extrato e entra em `transparencia_meses` quando o mês fecha.
  */
 export async function lerResumoDoMes(
   cliente: ClienteRua,
@@ -28,16 +34,27 @@ export async function lerResumoDoMes(
   const { data, error } = await cliente
     .rpc("resumo_sinal_aberto")
     .maybeSingle();
-  if (error || !data) return null;
-  return data as ResumoDoMes;
+  return error ? null : data;
 }
 
-export async function lerNiveis(cliente: ClienteRua) {
+/** A escada inteira, alcançados e pendentes, em ordem. */
+export async function lerNiveis(cliente: ClienteRua): Promise<NivelDeApoio[]> {
   const { data, error } = await cliente
-    .from("niveis_sinal_aberto")
-    .select("nivel, titulo, subtitulo, meta_centavos, alcancado_em")
-    .order("nivel", { ascending: true });
+    .from("niveis_apoio")
+    .select("*")
+    .order("ordem", { ascending: true });
   return error ? [] : (data ?? []);
+}
+
+/** As duas datas que fazem a home mudar de estado. */
+export async function lerDatasDoProjeto(
+  cliente: ClienteRua,
+): Promise<DatasDoProjeto | null> {
+  const { data, error } = await cliente
+    .from("projeto")
+    .select("*")
+    .maybeSingle();
+  return error ? null : data;
 }
 
 /**
@@ -46,6 +63,10 @@ export async function lerNiveis(cliente: ClienteRua) {
  * Passa por função `SECURITY DEFINER` idempotente: e-mail repetido devolve
  * sucesso sem contar para fora que já estava lá, para a tabela não virar
  * oráculo de "esta pessoa se inscreveu?".
+ *
+ * A `origem` distingue quem entrou pelo herói, pelo fecho ou pelo botão de
+ * apoio — o último é a medida de quantos vão sustentar antes de a campanha
+ * abrir.
  */
 export async function entrarNaLista(
   cliente: ClienteRua,

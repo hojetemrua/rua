@@ -16,27 +16,39 @@ export type Database = {
     Tables: {
       apoios: {
         Row: {
+          anonimo: boolean
           ativo: boolean
           cancelado_em: string | null
           criado_em: string
+          fundador: boolean
           id: string
-          usuario_id: string
+          mes: string | null
+          recorrente: boolean
+          usuario_id: string | null
           valor_centavos: number
         }
         Insert: {
+          anonimo?: boolean
           ativo?: boolean
           cancelado_em?: string | null
           criado_em?: string
+          fundador?: boolean
           id?: string
-          usuario_id: string
+          mes?: string | null
+          recorrente?: boolean
+          usuario_id?: string | null
           valor_centavos: number
         }
         Update: {
+          anonimo?: boolean
           ativo?: boolean
           cancelado_em?: string | null
           criado_em?: string
+          fundador?: boolean
           id?: string
-          usuario_id?: string
+          mes?: string | null
+          recorrente?: boolean
+          usuario_id?: string | null
           valor_centavos?: number
         }
         Relationships: []
@@ -65,61 +77,77 @@ export type Database = {
         }
         Relationships: []
       }
-      niveis_sinal_aberto: {
+      niveis_apoio: {
         Row: {
           alcancado_em: string | null
+          descricao: string
           meta_centavos: number
-          nivel: number
-          subtitulo: string | null
-          titulo: string
+          nome: string
+          ordem: number
         }
         Insert: {
           alcancado_em?: string | null
+          descricao: string
           meta_centavos: number
-          nivel: number
-          subtitulo?: string | null
-          titulo: string
+          nome: string
+          ordem: number
         }
         Update: {
           alcancado_em?: string | null
+          descricao?: string
           meta_centavos?: number
-          nivel?: number
-          subtitulo?: string | null
-          titulo?: string
+          nome?: string
+          ordem?: number
+        }
+        Relationships: []
+      }
+      projeto: {
+        Row: {
+          apoio_abre_em: string
+          atualizado_em: string
+          id: boolean
+          lanca_em: string
+        }
+        Insert: {
+          apoio_abre_em: string
+          atualizado_em?: string
+          id?: boolean
+          lanca_em: string
+        }
+        Update: {
+          apoio_abre_em?: string
+          atualizado_em?: string
+          id?: boolean
+          lanca_em?: string
         }
         Relationships: []
       }
       transparencia_meses: {
         Row: {
+          apoio_bruto_centavos: number | null
           custo_centavos: number
-          descricao: string
           mes: string
-          nivel: number
+          nota: string | null
           publicado: boolean
+          taxa_centavos: number | null
         }
         Insert: {
+          apoio_bruto_centavos?: number | null
           custo_centavos: number
-          descricao: string
           mes: string
-          nivel: number
+          nota?: string | null
           publicado?: boolean
+          taxa_centavos?: number | null
         }
         Update: {
+          apoio_bruto_centavos?: number | null
           custo_centavos?: number
-          descricao?: string
           mes?: string
-          nivel?: number
+          nota?: string | null
           publicado?: boolean
+          taxa_centavos?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "transparencia_meses_nivel_fkey"
-            columns: ["nivel"]
-            isOneToOne: false
-            referencedRelation: "niveis_sinal_aberto"
-            referencedColumns: ["nivel"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
@@ -134,11 +162,17 @@ export type Database = {
         Args: never
         Returns: {
           apoiadores: number
-          arrecadado_centavos: number
-          custo_centavos: number
+          bruto_centavos: number
+          comunidade_centavos: number
+          custo_do_mes_centavos: number
           descricao: string
+          fundador_centavos: number
+          liquido_estimado_centavos: number
           mes: string
+          meta_bruta_centavos: number
           nivel: number
+          nome: string
+          taxa_estimada_centavos: number
         }[]
       }
     }

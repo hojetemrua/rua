@@ -13,7 +13,15 @@ export const NAVEGACAO = [
 ] as const;
 
 export const HEROI = {
-  selo: "ABRE EM 2026 · LISTA ABERTA",
+  /**
+   * O selo é montado com a data de `projeto.lanca_em`, não escrito à mão:
+   * data errada na home do projeto de contas abertas custa mais que o trabalho
+   * de buscar do banco.
+   */
+  seloSufixo: "LISTA ABERTA",
+  /** Usado só quando o banco não responde. */
+  seloSemente: "ABRE EM SETEMBRO · LISTA ABERTA",
+  seloDepoisDeAbrir: "NO AR · DE TODOS, PARA SEMPRE",
   titulo: ["LIVRE PARA", "CORRER."],
   manifesto:
     "A rua nunca te cobrou nada. Nunca pediu cadastro, nunca trancou " +
@@ -78,8 +86,27 @@ export const POR_QUE_GRATUITO = {
 
 export const SINAL_ABERTO = {
   rotuloDoQueVemDepois: "O que vem depois",
-  botao: "Apoiar todo mês",
+  rotuloAlcancados: "Já alcançado",
   rodape: "Sem meta escondida: o número acima é o custo real do mês.",
+
+  /* Depois de a campanha abrir */
+  botao: "Apoiar todo mês",
+  /**
+   * Onde o apoio recorrente é recebido. Trocar pelo endereço real da campanha
+   * quando ela for publicada — ver docs/lancamento.md.
+   */
+  hrefApoiar: "https://www.catarse.me/hojetemrua",
+  deQuemComecou:
+    "Os primeiros R$ 1.000 são de quem começou. O nível 2 é com a gente.",
+
+  /* Antes de a campanha abrir */
+  rotuloAntesDeAbrir: "Contas abertas · custo do mês",
+  tituloAntesDeAbrir: "As contas já estão abertas. O pedido ainda não.",
+  antesDeAbrir:
+    "A conta acima é a de hoje, e fica publicada aqui todo mês, com o número " +
+    "real. O apoio abre no dia em que a Rua abrir — não faz sentido pedir para " +
+    "sustentar uma coisa que você ainda não pode usar.",
+  botaoAntesDeAbrir: "Quero apoiar quando abrir",
 } as const;
 
 export const COMO_FUNCIONA = {
@@ -110,7 +137,8 @@ export const COMO_FUNCIONA = {
 export const FECHO = {
   titulo: "A rua está aberta.",
   texto:
-    "Entra na lista e te chamamos quando abrir. Sem fila paga, sem convite especial.",
+    "Entra na lista e te chamamos no dia. Abre no navegador e nas lojas, " +
+    "de uma vez. Sem fila paga, sem convite especial.",
   botao: "Me avisa",
 } as const;
 

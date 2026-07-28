@@ -19,12 +19,15 @@ type FormularioProps = {
   origem: string;
   /** Sufixo do id do campo — a home tem mais de um formulário na página. */
   id: string;
+  /** Sobrescreve o texto do botão. A página de apoio usa "Quero apoiar". */
+  rotuloDoBotao?: string;
   className?: string;
 };
 
 export function FormularioListaEspera({
   origem,
   id,
+  rotuloDoBotao,
   className,
 }: FormularioProps) {
   const [estado, acao, pendente] = useActionState<EstadoDaLista, FormData>(
@@ -87,7 +90,7 @@ export function FormularioListaEspera({
           disabled={pendente}
           className="inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-tinta px-[30px] py-[19px] font-ui text-[17px] font-extrabold text-papel transition-colors hover:bg-tinta-2 disabled:bg-linha disabled:text-tinta-3"
         >
-          {pendente ? "Um instante…" : LISTA_ESPERA.botao}
+          {pendente ? "Um instante…" : (rotuloDoBotao ?? LISTA_ESPERA.botao)}
           {pendente ? null : <IconeSeta className="size-[17px]" />}
         </button>
       </div>

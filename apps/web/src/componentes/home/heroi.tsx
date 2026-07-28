@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { IconeRelogio } from "@/componentes/base/icones";
 import { HEROI } from "@/conteudo/home";
+import { lerSinalAberto } from "@/lib/dados/sinal-aberto";
+import { formatarDiaCurtoCaixaAlta } from "@/lib/formato";
 import {
   BLUR_FOTO_HEROI,
   CAMINHO_FOTO_HEROI,
@@ -10,7 +12,16 @@ import {
 } from "@/lib/foto-heroi";
 import { FormularioListaEspera } from "./formulario-lista-espera";
 
-export function Heroi() {
+export async function Heroi() {
+  const painel = await lerSinalAberto();
+
+  // Antes de abrir: "ABRE 19 DE SET · LISTA ABERTA". Depois: "NO AR".
+  const selo = painel.daSemente
+    ? HEROI.seloSemente
+    : painel.apoioAberto
+      ? HEROI.seloDepoisDeAbrir
+      : `ABRE ${formatarDiaCurtoCaixaAlta(painel.lancaEm)} · ${HEROI.seloSufixo}`;
+
   return (
     <section
       id="topo"
@@ -20,7 +31,7 @@ export function Heroi() {
         <div>
           <p className="inline-flex items-center gap-[9px] rounded-full border-[1.5px] border-tracado bg-branco px-3.5 py-[7px] font-ui text-[11.5px] font-extrabold tracking-[0.1em] text-tinta-2">
             <IconeRelogio className="size-3.5 text-tracado" />
-            {HEROI.selo}
+            {selo}
           </p>
 
           <h1

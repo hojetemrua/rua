@@ -140,3 +140,19 @@ export function porcentagem(parte: number, total: number): number {
   if (total <= 0) return 0;
   return Math.round((parte / total) * 100);
 }
+
+const diaCurto = new Intl.DateTimeFormat("pt-BR", {
+  day: "numeric",
+  month: "short",
+  timeZone: "UTC",
+});
+
+/** `"2026-09-19"` → `"19 de set."` — data compacta, para listas. */
+export function formatarDiaCurto(iso: string): string {
+  return diaCurto.format(dataDeIso(iso));
+}
+
+/** `"2026-09-19"` → `"19 DE SET"` — para o selo do herói. */
+export function formatarDiaCurtoCaixaAlta(iso: string): string {
+  return formatarDiaCurto(iso).replace(".", "").toUpperCase();
+}

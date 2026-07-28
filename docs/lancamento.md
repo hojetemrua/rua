@@ -30,13 +30,12 @@ depende dela.
 |---|---|
 | Home com manifesto e lista de espera | ✅ no ar |
 | E-mail de confirmação de `oi@rua.run` | ✅ no ar |
-| **Painel Sinal Aberto conforme §4** | ❌ **bloqueia o post de 1/8** |
+| Painel Sinal Aberto conforme §4 | ✅ no ar (28/7) |
+| Página `/apoiar` capturando intenção | ✅ no ar (28/7) |
 
-O post de estreia manda gente para `rua.run`. Hoje o painel exibe a escada
-antiga — "Mapa e traçado sem limite", "Painel do assessor liberado" — que o §4
-classifica como paywall custeado coletivamente, e mostra `R$ 0 · 0% · 0 pessoas
-apoiando`, que o §4 proíbe. **É o único item que precisa estar pronto antes de
-1º de agosto.**
+O bloqueio de 1/8 caiu: o painel não exibe mais a escada de recursos nem
+`R$ 0 · 0% · 0 pessoas apoiando`. Enquanto o apoio não abre, mostra o custo do
+mês — o número verdadeiro que o post de estreia pode citar.
 
 ---
 
@@ -75,10 +74,10 @@ home, e o rodapé aponta "Contas do mês" para a âncora `#por-que-gratuito`.
 
 ## Fase 2 — Contagem (1 a 18 de setembro)
 
-- **Ter 1/9 — Dia do Profissional de Educação Física.** Abre a campanha no
-  Catarse e o convite nominal aos assessores. "A Rua abre para assessores
-  primeiro — sem mensalidade, sem comissão. O que você cobra do seu aluno é
-  seu, inteiro."
+- **Ter 1/9 — Dia do Profissional de Educação Física.** Convite nominal aos
+  assessores, com acesso antecipado. "A Rua abre para assessores primeiro — sem
+  mensalidade, sem comissão. O que você cobra do seu aluno é seu, inteiro."
+  **Não abre a campanha de apoio** — ver a seção sobre o Catarse adiante.
 - **Qui 10/9 — 66 anos da vitória descalço.** Reels de Bikila cortando para o
   manifesto. Nove dias para abrir.
 - **14 a 18/9** — contagem diária nos stories, um valor por dia: de todos ·
@@ -89,12 +88,12 @@ home, e o rodapé aponta "Contas do mês" para a âncora `#por-que-gratuito`.
 
 | Entrega | Por quê |
 |---|---|
-| Botão `Apoiar todo mês` apontando para o Catarse | Hoje aponta para `/apoiar`, que é um aviso de "ainda não dá" |
-| Sincronização Catarse → `apoios` | Sem isso o painel não se move quando alguém apoia, e a campanha vira promessa vazia |
 | Acesso antecipado para assessor | O convite de 1/9 promete "assessores primeiro" |
+| Sincronização Catarse → `apoios` | Precisa estar pronta e testada em 19/9, não no dia |
 
-O terceiro item é o mais pesado: prometer acesso antecipado exige autenticação
-(fase 3) e o painel do assessor com dado real (fase 8).
+O primeiro item é o mais pesado: prometer acesso antecipado exige autenticação
+(fase 3) e o painel do assessor com dado real (fase 8). O botão de apoio não
+entra aqui — continua levando para `/apoiar`, que captura quem já quer sustentar.
 
 ---
 
@@ -119,154 +118,143 @@ slogan.
 - **Início de outubro:** primeiro relatório Sinal Aberto público, com número
   real de apoiadores e custo. Mesmo que seja pequeno. Especialmente se for
   pequeno.
-- **Feriado de 10 a 12/10:** apps nas lojas + segundo "hoje tem rua"
-  presencial.
+- **Feriado de 10 a 12/10:** segundo "hoje tem rua" presencial. Os apps já
+  estão nas lojas desde 19/9.
 
 ---
 
-## Duas tensões entre o plano técnico e esta linha do tempo
+## Decisão: tudo abre em 19 de setembro
 
-### 1. A ordem das fases da §9 não serve a este calendário
+Plataforma e apps nas lojas, 100% funcionando, no mesmo dia. Isso elimina a
+dúvida sobre o que "abre" significa e reordena o plano técnico: as fases do
+Expo deixam de poder esperar.
 
-A §9 da especificação constrói o Expo (fases 4, 5, 6) **antes** da web (fases 7,
-8). Mas o calendário precisa de web em agosto (`/sinal-aberto`), de web em
-setembro (campanha, acesso do assessor) e coloca **apps nas lojas em 10–12 de
-outubro** — três semanas depois do lançamento.
+### A conta para trás, a partir de 19/9
 
-Ordem que serve ao calendário:
-
-```
-3  Auth (Google)                    → antes de 1/9
-7  Web: público + Sinal Aberto      → antes de 17/8
-8  Web: Turma → Atleta → Biblioteca → antes de 1/9
-4  Expo: shell das cinco abas       → setembro
-5  Expo: motor de corrida           → setembro
-6  Expo: Hoje, Atividade, Plano     → início de outubro
-10 Builds EAS e submissão           → 10–12/10
-```
-
-### 2. O que "abre" significa em 19 de setembro
-
-Se os apps só entram nas lojas em outubro, o lançamento de 19/9 não pode ser a
-abertura dos apps. Três leituras possíveis, com consequências técnicas
-diferentes:
-
-| Leitura | O que precisa estar pronto em 19/9 |
-|---|---|
-| **(a) Abre a web** — corredor e assessor usam pelo navegador; apps vêm em outubro | Fases 3, 7, 8 + as telas do corredor na web com dado real |
-| **(b) Abre a beta** — TestFlight e faixa de testes do Google | Fases 3, 4, 5, 6 + EAS build de preview |
-| **(c) Abre o cadastro** — conta criada, produto chega em outubro | Fase 3 e nada mais |
-
-**A leitura (a) é a que mais aproveita o que já existe:** as nove telas logadas
-estão construídas na web, faltando só a troca de `exemplo.ts` por dado real.
-Ela também é a mais coerente com o Dia do Software Livre — abre no navegador,
-sem loja de aplicativo no caminho.
-
-Isto precisa de decisão antes de começar a fase 2 do plano técnico.
-
----
-
-## Caminho proposto para o §4 — Sinal Aberto
-
-### O que está errado hoje, em produção
-
-```
-NÍVEL 1 · APOIO MENSAL              JULHO 2026
-Servidor de pé para 5.000 corredores
-R$ 0 de R$ 1.000 por mês
-0% do nível 1                    0 pessoas apoiando
-
-O QUE VEM DEPOIS
-02  Mapa e traçado sem limite            R$ 2.400
-03  Painel do assessor liberado          R$ 4.300
-04  Um ano garantido na frente           R$ 7.000
-```
-
-Três problemas: os níveis 2 e 3 prometem **funcionalidade**, o que é paywall
-custeado coletivamente; não há linha de taxa nem de líquido; e a barra exibe
-exatamente o `R$ 0 · 0% · 0 pessoas` que o §4 proíbe.
-
-### A escada nova, e por que os números fecham
-
-As metas do §4 são as do §6 divididas por 0,87 — o Catarse retém 13%. Isso não
-é coincidência, é a mesma conta vista pelos dois lados, e permite ao painel
-mostrar bruto e líquido a partir da mesma linha:
-
-| Nível | Nome | Meta bruta | Taxa (13%) | Líquido | Compra |
-|---|---|---|---|---|---|
-| 1 | A rua de pé | R$ 1.150 | R$ 150 | R$ 1.000 | Servidor, banco, e-mail e mapas no ar para os primeiros milhares. |
-| 2 | Cabe mais gente | R$ 2.900 | R$ 377 | R$ 2.523 | Escala para dezenas de milhares sem engasgo. |
-| 3 | Fora do bolso de um | R$ 5.200 | R$ 676 | R$ 4.524 | Associação, contabilidade, jurídico e marca. A Rua para de depender de uma pessoa. |
-| 4 | Um ano na frente | R$ 8.000 | R$ 1.040 | R$ 6.960 | Reserva de 12 meses. A rua não fecha em ano magro. |
-| 5 | Mais gente construindo | R$ 13.800 | R$ 1.794 | R$ 12.006 | Remunerar quem constrói: código, acessibilidade, suporte. |
-
-Nenhum nível libera nada. Todos compram capacidade, independência ou
-permanência — e tudo funciona desde o nível 1.
-
-### Como a barra deixa de começar em zero, sem mentir
-
-O §4 diz que o nível 1 já entra parcialmente coberto pelo fundador. A forma
-honesta de fazer isso é **registrar o apoio do fundador como um apoio de
-verdade**, com `fundador = true`, e a barra em dois tons:
-
-```
-NÍVEL 1 · A RUA DE PÉ                          AGOSTO 2026
-Servidor, banco, e-mail e mapas no ar.
-
-R$ 1.150  de R$ 1.150 bruto por mês
-████████████████████████████████████  100%
-└─ quem começou ─┘└─ a comunidade ─┘
-
-arrecadado  R$ 1.150     taxa Catarse  −R$ 150     na operação  R$ 1.000
-1 pessoa apoiando
-
-Os primeiros R$ 1.000 são de quem começou. O nível 2 é com a gente.
-```
-
-Duas consequências de desenho:
-
-1. **O painel mostra o nível corrente, não sempre o nível 1.** Assim que o
-   nível 1 é alcançado, o alvo passa a ser o 2, e o 1 aparece na lista de
-   alcançados com a data. É o que o §4 pede em "cada nível alcançado fica
-   publicado aqui, com o número real".
-2. **A fatia do fundador tem tom próprio.** `--ink-3` para quem começou,
-   `--trace` para a comunidade. Sem isso, mostrar o dinheiro do fundador como
-   "arrecadado" seria tecnicamente verdade e moralmente esticado.
-
-### Mudanças de banco
-
-Três migrações, na ordem:
-
-**1. `niveis_apoio` substitui `niveis_sinal_aberto`.** A tabela atual guarda
-título e subtítulo do protótipo; a nova guarda o que o §2 pede — `ordem`,
-`nome`, `meta_centavos` (bruta), `descricao` (pública), `alcancado_em`.
-
-**2. `transparencia_meses` ganha as três linhas.** Hoje tem `custo_centavos` e
-um acoplamento com `nivel`/`descricao` que sai. Entram
-`apoio_bruto_centavos`, `taxa_centavos` e `nota` — os valores **reais** do
-extrato do Catarse, não uma estimativa de 13%.
-
-**3. `apoios` ganha o que a campanha exige.** `mes`, `recorrente`, `fundador`,
-`anonimo`, e `usuario_id` passa a aceitar nulo: apoio vindo do Catarse não tem
-necessariamente conta na Rua.
-
-E `resumo_sinal_aberto()` é reescrita para devolver o nível corrente, as três
-linhas e a fatia do fundador separada da comunidade.
-
-### Divisão de fontes, para não misturar mês aberto com mês fechado
-
-| Fonte | Serve | Onde aparece |
+| Data | Marco | Por quê |
 |---|---|---|
-| `apoios` | mês em curso, ao vivo | painel na home |
-| `transparencia_meses` | mês fechado, com a taxa real do extrato | `/sinal-aberto`, "Contas do mês" |
-| `niveis_apoio` | a escada e o que já foi alcançado | os dois |
+| 15/09 | Apps aprovados, em "aguardando liberação" | Você aperta o botão no dia |
+| 05/09 | Submissão final às lojas | Reserva para **dois** ciclos de rejeição — GPS em segundo plano é o item mais revisado pela Apple |
+| 29/08 | Congelamento de código | Nada novo entra; só correção do que a beta achar |
+| 15/08 | Beta em TestFlight e faixa de testes | Bug de GPS em segundo plano só aparece em campo, ao longo de horas, em aparelho alheio |
+| 08/08 | Motor de corrida funcionando | SQLite, segundo plano, pausa, voz, recuperação de queda |
+| 01/08 | Auth + shell das cinco abas | Pré-requisito de tudo no app |
 
-Sem essa separação, o painel teria que estimar a taxa em 13% durante o mês e
-depois corrigir — e "contas abertas" com número que muda depois é pior que
-número que demora.
+**O maior risco não é código: é a conta Apple Developer.** Enrollment como
+pessoa física sai em horas; como pessoa jurídica exige D-U-N-S e leva de duas a
+quatro semanas. Se ela ainda não existe e o registro for pelo CNPJ, a data cai
+por aí — não pelo software. Verificar isto é a tarefa mais urgente do projeto.
 
-### Prazo
+### Ordem de construção revisada
 
-**Até 31 de julho.** É véspera do post de estreia, e é o único item da Fase 0
-que ainda não está no ar. Sem ele, o primeiro post do projeto manda gente para
-uma página que contradiz o manifesto que o próprio post publica.
+```
+3  Auth (Google; Apple cabeado por env)   → 1/8
+4  Expo: shell das cinco abas             → 1/8
+5  Expo: motor de corrida                 → 8/8
+6  Expo: Hoje, Atividade, Plano           → 15/8   (entra na beta)
+7  Web: público + /sinal-aberto           → 17/8   (a Fase 1 do marketing pede)
+8  Web: Turma → Atleta → Biblioteca       → 29/8
+9  Expo: Comunidade, Perfil, exportação   → 29/8
+10 Builds EAS e submissão                 → 5/9
+11 "Correndo agora"                       → depois do lançamento
+```
+
+Fases 4, 5 e 6 sobem antes da web porque loja tem fila e navegador não.
+
+---
+
+## Quando abrir o Catarse: **19 de setembro, junto**
+
+Cinco razões, em ordem de peso:
+
+1. **Não se pede dinheiro por algo que ainda não existe.** O único ativo do
+   projeto hoje é confiança. Cobrar antes de entregar gasta exatamente isso.
+2. **Se a data escorregar, você atrasa um lançamento — não uma promessa que já
+   cobrou.** Atrasar depois de receber é o único erro que "contas abertas" não
+   sobrevive. E o calendário acima tem folga de dias, não de semanas.
+3. **A barra não precisa da campanha para sair do zero.** O apoio de quem
+   começou cobre o nível 1, e antes de 19/9 o painel mostra o custo em vez de
+   uma barra vazia. O `R$ 0 · 0% · 0 pessoas` que o §4 proíbe já não acontece.
+4. **19/9 é o maior alcance do ano.** Pôr o pedido ali converte no pico, não no
+   aquecimento.
+5. **Assinatura recorrente cobra no ciclo.** Abrir em 1/9 traria dinheiro para
+   outubro, não para setembro — o mês do lançamento é coberto por quem começou
+   de qualquer jeito. O ganho financeiro de antecipar é quase zero.
+
+### O que fazer com o dia 1º de setembro
+
+O gancho do Dia do Profissional de Educação Física é bom demais para perder — e
+ele não precisa de dinheiro. Mantenha o post, trocando o pedido pelo **acesso
+antecipado do assessor**: convite nominal, beta na mão, planilha montada antes
+de o corredor chegar. Custa nada, pede nada, e dá ao assessor o que ele mais
+valoriza — chegar antes.
+
+### O que capturar até lá
+
+O botão do painel não vira beco sem saída entre 1/8 e 19/9. Ele leva para
+`/apoiar`, que explica a conta e captura quem já quer apoiar na mesma lista de
+espera, com `origem = "apoio"`.
+
+Isso dá a medida que decide o tom do post de lançamento: **quantas pessoas se
+comprometeram antes de existir cobrança**. Se forem 200, o post de 19/9 pode
+dizer "200 pessoas já disseram que sustentam". Se forem 12, é melhor saber em
+agosto do que descobrir no dia.
+
+### Preparar a campanha sem publicar
+
+A página do Catarse é revisada pela plataforma antes de ir ao ar. Montar em
+**início de setembro** e deixar agendada para 19/9 — não deixar a submissão
+para a véspera.
+
+---
+
+## Caminho para o §4 — implementado em 28 de julho
+
+O que estava no ar contradizia a promessa. Foi trocado.
+
+### O que mudou
+
+| Antes | Agora |
+|---|---|
+| "Mapa e traçado sem limite", "Painel do assessor liberado" | Cinco níveis que compram capacidade, independência e permanência |
+| `R$ 0 de R$ 1.000 · 0% · 0 pessoas apoiando` | Antes de 19/9, o custo do mês. Depois, as três linhas. |
+| Uma linha só (arrecadado) | Arrecadado · taxa da plataforma · na operação |
+| Sempre o nível 1 | O nível corrente; os alcançados viram lista com data |
+| Barra de um tom | Dois tons: quem começou em cinza, a comunidade no traçado |
+
+### Por que as metas fecham
+
+As metas do §4 são as do §6 divididas por 0,87 — a plataforma de apoio retém
+13%. Não é coincidência: é a mesma conta pelos dois lados. R$ 1.150 bruto menos
+a taxa dá exatamente os R$ 1.000 de custo real, e assim nos cinco níveis. O
+painel mostra as três linhas para ninguém precisar fazer essa conta de cabeça.
+
+| Nível | Nome | Meta bruta | Taxa | Na operação |
+|---|---|---|---|---|
+| 1 | A rua de pé | R$ 1.150 | R$ 150 | R$ 1.000 |
+| 2 | Cabe mais gente | R$ 2.900 | R$ 377 | R$ 2.523 |
+| 3 | Fora do bolso de um | R$ 5.200 | R$ 676 | R$ 4.524 |
+| 4 | Um ano na frente | R$ 8.000 | R$ 1.040 | R$ 6.960 |
+| 5 | Mais gente construindo | R$ 13.800 | R$ 1.794 | R$ 12.006 |
+
+### Onde as datas moram
+
+Tabela `projeto`, uma linha, leitura pública: `lanca_em` e `apoio_abre_em`. O
+selo do herói e o estado do painel saem de lá. Trocar data por deploy é
+convidar a esquecer, e data errada na home do projeto de contas abertas custa
+mais que o trabalho de fazer isto direito.
+
+### Ainda falta
+
+1. **Registrar o apoio de quem começou** em produção, com o valor real e
+   `fundador = true`. Sem isso, no dia 19/9 a barra abre em zero — o que o §4
+   proíbe. Não inventei o valor: R$ 1.150 é o que cobre o nível 1, mas o número
+   é seu.
+2. **O endereço da campanha.** `SINAL_ABERTO.hrefApoiar` está apontando para um
+   palpite (`catarse.me/hojetemrua`). Trocar pelo real quando existir.
+3. **Sincronização Catarse → `apoios`.** Sem ela o painel não se move quando
+   alguém apoia. Webhook ou importação periódica; decidir até 5/9.
+4. **Fechamento mensal.** `transparencia_meses` precisa de `apoio_bruto_centavos`
+   e `taxa_centavos` do extrato real quando o mês fecha — é o que a página de
+   contas mostra, e é diferente da estimativa de 13% que o painel usa durante o
+   mês.

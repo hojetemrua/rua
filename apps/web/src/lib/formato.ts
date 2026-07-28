@@ -10,6 +10,8 @@
 export {
   FUSO,
   dataDeIso,
+  formatarDiaCurto,
+  formatarDiaCurtoCaixaAlta,
   formatarDiaPorExtenso,
   formatarDistancia,
   formatarDuracao,
