@@ -23,6 +23,31 @@ vence em visual e conteúdo de tela.
 - Arquivo `"use server"` só pode exportar função assíncrona. Exportar um objeto
   derruba o módulo em execução, e nem `tsc` nem `next build` avisam.
 
+## Uma armadilha do pnpm 11
+
+Scripts de instalação são aprovados em `allowBuilds` (mapa nome → booleano) no
+`pnpm-workspace.yaml`. A chave antiga, `onlyBuiltDependencies` (lista), continua
+sendo aceita como setting — `pnpm config get` a devolve sem reclamar — mas não
+aprova mais nada. `pnpm install` local passa de qualquer jeito, porque a
+aprovação anterior fica gravada em `node_modules/.modules.yaml`; quebra só em
+máquina limpa, com `ERR_PNPM_IGNORED_BUILDS`.
+
+Para testar install de verdade, use árvore limpa:
+
+```sh
+git archive HEAD | tar -x -C /tmp/limpo && cd /tmp/limpo && pnpm install --frozen-lockfile
+```
+
+## Deploy
+
+**A Vercel não está conectada ao GitHub** (`link: null` no projeto). Push não
+dispara build; a publicação é manual:
+
+```sh
+set -a; . ./.env.deploy; set +a
+npx vercel@latest deploy --prod --yes --token="$VERCEL_TOKEN"
+```
+
 ## Estrutura
 
 ```

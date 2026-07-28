@@ -4,7 +4,14 @@ packages:
 
 # Estes três precisam rodar script de instalação: sharp para o otimizador de
 # imagem do Next, esbuild para o Vitest, unrs-resolver para o ESLint.
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-  - unrs-resolver
+#
+# É `allowBuilds` (mapa), não `onlyBuiltDependencies` (lista). O pnpm 11 trocou
+# a chave, e a antiga continua sendo ACEITA como setting — `pnpm config get
+# onlyBuiltDependencies` devolve a lista sem reclamar — mas não aprova mais
+# nada. O install local passava só porque a aprovação anterior estava gravada
+# em `node_modules/.modules.yaml`; em máquina limpa, como a da Vercel, quebrava
+# com ERR_PNPM_IGNORED_BUILDS. Não volte para a lista.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
