@@ -1,4 +1,4 @@
-import { CORES, RAIOS } from "./tokens";
+import { CORES, RAIOS, SOMBRA_CARTAO } from "./tokens";
 
 /**
  * Os tokens como custom properties CSS, nos nomes que o handoff usa.
@@ -38,6 +38,9 @@ export function cssDosTokens(): string {
     `--r-sm-home: ${RAIOS.pequenoHome}px;`,
     `--r-bloco: ${RAIOS.bloco}px;`,
     `--r-foto: ${RAIOS.foto}px;`,
+    "",
+    "/* sombra de contato dos cartões */",
+    `--sh: ${SOMBRA_CARTAO};`,
   ];
 
   return `:root {\n${linhas.map((l) => (l ? `  ${l}` : "")).join("\n")}\n}\n`;

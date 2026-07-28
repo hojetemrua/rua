@@ -66,6 +66,20 @@ export const TEXTO_SOBRE_ZONA = {
   z5: CORES.branco,
 } as const;
 
+/**
+ * Sombra de contato dos cartões.
+ *
+ * Duas camadas: 1px de assentamento e um halo largo e muito difuso. A elevação
+ * continua vindo principalmente da borda de 1px — a sombra só descola o cartão
+ * do papel, sem virar profundidade decorativa.
+ *
+ * Só existe na web. Em React Native, sombra é `shadowOffset`/`elevation` e não
+ * traduz uma string CSS; quando o app precisar, o valor nativo entra aqui ao
+ * lado, não no lugar.
+ */
+export const SOMBRA_CARTAO =
+  "0 1px 2px rgba(18, 18, 22, 0.04), 0 16px 40px -26px rgba(18, 18, 22, 0.22)";
+
 export const RAIOS = {
   cartao: 22,
   pequeno: 14,
@@ -105,6 +119,7 @@ export const FUSO = "America/Sao_Paulo";
 export const TOKENS = {
   cores: CORES,
   textoSobreZona: TEXTO_SOBRE_ZONA,
+  sombraCartao: SOMBRA_CARTAO,
   raios: RAIOS,
   fontes: FONTES,
   pesos: PESOS,

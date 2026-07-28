@@ -74,16 +74,15 @@
   --r-foto: 28px; /* cartão da foto do herói */
 
   /*
-   * DIVERGÊNCIA DO HANDOFF — o design venceu.
+   * Sombra de contato dos cartões — handoff §1.
    *
-   * O handoff afirma "Zero box-shadow. Zero gradient. Verificado nos dois
-   * protótipos: não existe nenhum." O protótipo tem, e usa: `--sh` está
-   * declarado e aplicado nos cartões da home. Como o handoff manda o design
-   * vencer no visual, a sombra fica — mas registrada aqui, porque contraria
-   * uma regra que o próprio documento chama de absoluta.
+   * Duas camadas quase imperceptíveis: 1px de assentamento e um halo largo e
+   * muito difuso. A elevação continua vindo da borda de 1px sobre papel; a
+   * sombra só descola o cartão do fundo.
    *
-   * É uma sombra de contato, quase imperceptível: a elevação continua vindo
-   * principalmente da borda.
+   * É a ÚNICA sombra do projeto. Nada de `text-shadow`, nada de sombra em
+   * botão, nada de profundidade decorativa — e nada no app nativo, onde a
+   * borda basta. O valor vive em `@rua/marca` como `SOMBRA_CARTAO`.
    */
   --sh:
     0 1px 2px rgba(18, 18, 22, 0.04), 0 16px 40px -26px rgba(18, 18, 22, 0.22);
@@ -163,10 +162,15 @@
   }
 
   /*
-   * Link em repouso é tinta; em hover vira traçado.
-   * Outra divergência do handoff, que reserva a cor funcional para traçado e
-   * zonas — o protótipo usa `a:hover{color:var(--trace)}` de forma global, e
-   * o design vence no visual.
+   * Link em repouso é tinta; em hover vira traçado — handoff §1.
+   *
+   * É a única exceção nomeada à regra de que cor é dado: aqui a cor funcional
+   * toca o chrome de propósito, para amarrar a interação ao traçado. Não
+   * estender para outros estados nem para outros elementos.
+   *
+   * Atenção: dentro de superfície escura (a seção "Por que gratuito?", o
+   * cartão de apoio no Perfil) o link precisa de `text-inherit`, senão esta
+   * regra o pinta de tinta sobre fundo tinta e ele desaparece.
    */
   a {
     color: var(--ink);

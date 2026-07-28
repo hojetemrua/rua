@@ -48,6 +48,9 @@ Se os bundles pesarem no repositório, mantenha-os fora do Git (`.gitignore`) e 
 --r:       22px;      /* cartões (24px em blocos grandes da home) */
 --r-sm:    14px;      /* elementos menores (16px na home) */
 
+/* sombra de contato dos cartões — web apenas */
+--sh: 0 1px 2px rgba(18,18,22,0.04), 0 16px 40px -26px rgba(18,18,22,0.22);
+
 /* tipografia */
 --ui:  'Archivo', system-ui, sans-serif;    /* interface, títulos, rótulos */
 --txt: 'Inter', system-ui, sans-serif;      /* texto corrido */
@@ -58,8 +61,10 @@ Os mesmos valores vivem em `pacotes/marca`, exportados como CSS custom propertie
 
 ### Regras absolutas do visual
 
-- **Zero `box-shadow`. Zero `gradient`.** Elevação se faz com borda `1px solid var(--line)` e fundo branco sobre papel.
-- **Cor é dado, não decoração.** Chrome (navegação, cartões, botões, texto) usa só papel/tinta/linha. As seis cores funcionais aparecem exclusivamente em traçado e zonas.
+- **Zero `gradient`.** Nenhum fundo, borda ou texto com gradiente, em nenhum cliente.
+- **Sombra só a de contato, e só na web.** `--sh` são duas camadas quase imperceptíveis: 1px de assentamento e um halo largo e muito difuso. A elevação continua vindo da borda `1px solid var(--line)` sobre papel — a sombra apenas descola o cartão do fundo. Nenhuma outra sombra existe: nada de `text-shadow`, nada de sombra em botão, nada de profundidade decorativa. No app nativo não há sombra: a borda basta.
+- **Cor é dado, não decoração — com uma exceção nomeada.** Chrome (navegação, cartões, botões, texto) usa só papel/tinta/linha. As seis cores funcionais aparecem em traçado e zonas. **A exceção é o link:** em repouso é `--ink`, em `:hover` vira `--trace`. É o único lugar onde a cor funcional toca o chrome, e serve para amarrar visualmente a interação ao traçado. Não estender para outros estados nem para outros elementos.
+- **Verde em texto pede o tom escuro.** `--trace` tem 3,20:1 sobre branco: basta para objeto gráfico (mínimo 3:1), reprova para texto pequeno (mínimo 4,5:1). Quando o traçado vira texto — o selo `MELHOR: KM 5` — use `--trace-texto` (`#008540`): 4,74:1 sobre branco, 4,54:1 sobre papel, mesmo matiz.
 - **Zona sempre com rótulo textual** junto da cor (`Z3 FIRME`) — acessibilidade para daltônicos.
 - **Sem emoji e sem biblioteca de ícones colorida.** SVG inline, traço fino, monocromático.
 - Pesos usados: **400, 500, 600, 800, 900**. Números-herói em Overpass 900 com `tabular-nums`.
@@ -177,4 +182,4 @@ Proibido: **premium, assinar, desbloquear, upgrade, grátis por tempo limitado**
 
 ## 9. DEFINIÇÃO DE PRONTO (visual)
 
-Nenhuma cor fora dos tokens · nenhuma sombra ou gradiente · nenhuma fonte proprietária no bundle · zona sempre com rótulo textual · web funcional em 360px e 1280px · contraste AA mínimo · foco visível e navegação por teclado no painel · VoiceOver e TalkBack navegáveis nas telas do corredor · tela de Correr legível em brilho máximo, com alvos ≥ 48pt · nenhuma tela com mais de 7 alvos de toque.
+Nenhuma cor fora dos tokens · nenhum gradiente e nenhuma sombra além da de contato (`--sh`, web) · nenhuma fonte proprietária no bundle · zona sempre com rótulo textual · web funcional em 360px e 1280px · contraste AA mínimo · foco visível e navegação por teclado no painel · VoiceOver e TalkBack navegáveis nas telas do corredor · tela de Correr legível em brilho máximo, com alvos ≥ 48pt · nenhuma tela com mais de 7 alvos de toque.

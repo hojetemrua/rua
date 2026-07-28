@@ -26,13 +26,13 @@ O conteúdo dos protótipos **já está implementado** — a home em
 
 ## Onde os documentos vencem o protótipo
 
-Três pontos em que o código segue os documentos, e não o que o protótipo faz:
+Um ponto, e é o mais importante:
 
-1. **Sombra.** O protótipo declara e usa `--sh`. O handoff §1 diz "Zero
-   `box-shadow`. Zero `gradient`." e não lista `--sh` entre os tokens.
-2. **Verde em link.** O protótipo tem `a:hover{color:var(--trace)}`. O handoff
-   reserva a cor funcional para traçado e zonas.
-3. **Níveis do Sinal Aberto.** O protótipo mostra níveis que liberam
-   funcionalidade ("Mapa e traçado sem limite", "Painel do assessor
-   liberado"). O handoff §4 chama isso de paywall custeado coletivamente e
-   manda substituir pela escada de capacidade.
+**Níveis do Sinal Aberto.** O protótipo mostra níveis que liberam
+funcionalidade ("Mapa e traçado sem limite", "Painel do assessor liberado"). O
+handoff §4 chama isso de paywall custeado coletivamente e manda substituir pela
+escada de capacidade. Ver `docs/lancamento.md`.
+
+A sombra de contato (`--sh`) e o `a:hover` em verde, que antes estavam
+registrados aqui como divergência, foram **incorporados ao handoff §1** — o
+protótipo estava certo nos dois casos.
