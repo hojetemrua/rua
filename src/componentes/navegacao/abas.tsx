@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   IconeComunidade,
-  IconeCronometro,
+  IconeGravar,
   IconeHoje,
   IconePerfil,
   IconePlano,
@@ -9,13 +9,13 @@ import {
 import { cn } from "@/lib/cn";
 
 /**
- * Cinco abas de mesmo peso. "Correr" é aba, não botão flutuante — e Perfil é
- * aba, não só o avatar do topo.
+ * Cinco abas de mesmo peso. "Correr" é aba, não botão flutuante — a gravação
+ * não é mais importante que o resto, e nenhuma tela passa de sete alvos.
  */
 export const ABAS = [
   { href: "/hoje", rotulo: "Hoje", Icone: IconeHoje },
   { href: "/plano", rotulo: "Plano", Icone: IconePlano },
-  { href: "/correr", rotulo: "Correr", Icone: IconeCronometro },
+  { href: "/correr", rotulo: "Correr", Icone: IconeGravar },
   { href: "/comunidade", rotulo: "Comunidade", Icone: IconeComunidade },
   { href: "/perfil", rotulo: "Perfil", Icone: IconePerfil },
 ] as const;
@@ -35,7 +35,7 @@ export function ListaDeAbas({ caminho }: { caminho: string | null }) {
       className="fixed inset-x-0 bottom-0 z-10 border-t border-linha bg-branco"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <ul className="mx-auto flex w-full max-w-[520px] items-stretch">
+      <ul className="mx-auto flex w-full max-w-[520px] items-stretch px-0.5">
         {ABAS.map((aba) => {
           const ativa =
             caminho !== null &&
@@ -47,15 +47,18 @@ export function ListaDeAbas({ caminho }: { caminho: string | null }) {
                 href={aba.href}
                 aria-current={ativa ? "page" : undefined}
                 className={cn(
-                  "flex h-16 flex-col items-center justify-center gap-1.5",
+                  "flex flex-col items-center justify-center gap-[5px] pt-3 pb-5",
                   ativa ? "text-tinta" : "text-tinta-3",
                 )}
               >
-                <aba.Icone className="size-6" />
+                <aba.Icone
+                  className="size-5"
+                  traco={ativa ? 2.2 : 2}
+                />
                 <span
                   className={cn(
-                    "font-ui text-[11px] leading-none",
-                    ativa ? "font-semibold" : "font-medium",
+                    "font-ui text-[10.5px] leading-none",
+                    ativa ? "font-extrabold" : "font-bold",
                   )}
                 >
                   {aba.rotulo}

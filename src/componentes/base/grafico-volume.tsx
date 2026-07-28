@@ -2,80 +2,60 @@ import { cn } from "@/lib/cn";
 import { formatarVolume } from "@/lib/formato";
 
 export type SemanaDeVolume = {
-  /** Rótulo curto, ex.: "21/7". */
+  /** Rótulo curto da semana, ex.: "20/7". */
   rotulo: string;
   km: number;
-  /** A semana corrente é desenhada em tinta; as outras em linha. */
-  atual?: boolean;
+  /**
+   * `atual` em tinta, `recente` em tinta-2, `antigo` em linha. O gradiente de
+   * tom substitui legenda: quanto mais recente, mais escuro.
+   */
+  destaque: "antigo" | "recente" | "atual";
 };
 
+const TOM = {
+  antigo: "bg-linha",
+  recente: "bg-tinta-2",
+  atual: "bg-tinta",
+} as const;
+
 type GraficoVolumeProps = {
-  semanas: SemanaDeVolume[];
+  semanas: readonly SemanaDeVolume[];
+  /** Altura da área de barras. */
+  altura?: number;
   className?: string;
 };
 
-const LARGURA_BARRA = 22;
-const ESPACO = 12;
-const ALTURA = 96;
-const BASE = 4;
-
 /**
- * VOLUME · 8 SEMANAS — SVG puro, sem biblioteca de gráfico.
- * Semana atual em --ink, as demais em --line.
+ * VOLUME · 8 SEMANAS — barras em div, sem biblioteca de gráfico.
+ * Não existe meta anual nem medalha: o gráfico mostra o que houve, só isso.
  */
 export function GraficoVolume8Semanas({
   semanas,
+  altura = 74,
   className,
 }: GraficoVolumeProps) {
   if (semanas.length === 0) return null;
 
   const maximo = Math.max(...semanas.map((s) => s.km), 1);
-  const largura =
-    semanas.length * LARGURA_BARRA + (semanas.length - 1) * ESPACO;
-
   const resumo = semanas
     .map((s) => `${s.rotulo}: ${formatarVolume(s.km)} km`)
     .join("; ");
 
   return (
-    <figure className={cn("flex flex-col gap-3", className)}>
-      <svg
-        viewBox={`0 0 ${largura} ${ALTURA}`}
-        className="h-auto w-full"
-        role="img"
-        aria-label={`Volume por semana. ${resumo}.`}
-      >
-        {semanas.map((semana, indice) => {
-          const util = ALTURA - BASE;
-          const altura = Math.max(BASE, (semana.km / maximo) * util);
-          const x = indice * (LARGURA_BARRA + ESPACO);
-          return (
-            <rect
-              key={`${semana.rotulo}-${indice}`}
-              x={x}
-              y={ALTURA - altura}
-              width={LARGURA_BARRA}
-              height={altura}
-              rx={3}
-              fill={semana.atual ? "var(--ink)" : "var(--line)"}
-            />
-          );
-        })}
-      </svg>
-
-      <ul className="flex justify-between" aria-hidden="true">
-        {semanas.map((semana, indice) => (
-          <li
-            key={`${semana.rotulo}-${indice}`}
-            className={cn(
-              "numeros text-[11px] font-semibold",
-              semana.atual ? "text-tinta" : "text-tinta-3",
-            )}
-          >
-            {semana.rotulo}
-          </li>
-        ))}
-      </ul>
-    </figure>
+    <div
+      role="img"
+      aria-label={`Volume por semana. ${resumo}.`}
+      className={cn("flex items-end gap-1.5", className)}
+      style={{ height: altura }}
+    >
+      {semanas.map((semana, indice) => (
+        <div
+          key={`${semana.rotulo}-${indice}`}
+          className={cn("flex-1 rounded-md", TOM[semana.destaque])}
+          // Mínimo de 6% para uma semana fraca não sumir da linha de base.
+          style={{ height: `${Math.max(6, (semana.km / maximo) * 100)}%` }}
+        />
+      ))}
+    </div>
   );
 }

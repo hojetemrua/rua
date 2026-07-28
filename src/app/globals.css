@@ -48,6 +48,17 @@
 
   /* cor funcional — SÓ onde há dado */
   --trace: #00a650; /* traçado da corrida no mapa/miniatura */
+
+  /*
+   * O mesmo verde, escurecido, para quando o traçado vira TEXTO.
+   *
+   * #00A650 tem 3,20:1 sobre branco. Isso basta para objeto gráfico — a linha
+   * do traçado e a barra de progresso precisam de 3:1 — mas reprova para
+   * texto pequeno, que exige 4,5:1. Em vez de tirar o verde do rótulo
+   * "MELHOR: KM 5", que amarra o selo ao traçado, existe este tom só de
+   * texto: 4,74:1 sobre branco e 4,54:1 sobre papel, mesmo matiz.
+   */
+  --trace-texto: #008540;
   --z1: #b6ecf5; /* zona 1 */
   --z2: #2fb3e0; /* zona 2 */
   --z3: #f58a00; /* zona 3 */
@@ -99,6 +110,7 @@
   --color-linha-2: var(--line-2);
 
   --color-tracado: var(--trace);
+  --color-tracado-texto: var(--trace-texto);
   --color-z1: var(--z1);
   --color-z2: var(--z2);
   --color-z3: var(--z3);

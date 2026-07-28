@@ -208,52 +208,198 @@ export function IconeCodigo(props: IconeProps) {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Abas do aplicativo                                                          */
+/* Aplicativo do corredor e painel do assessor                                 */
 /* -------------------------------------------------------------------------- */
 
-export function IconeHoje({ className }: IconeProps) {
+/** Calendário — aba Hoje e o selo de data. */
+export function IconeHoje(props: IconeProps) {
   return (
-    <Base className={className} traco={1.5}>
-      <rect x="3.5" y="5" width="17" height="15" rx="3" />
-      <path d="M3.5 9.5h17" />
-      <path d="M8 3.5v3M16 3.5v3" />
-      <circle cx="12" cy="14.5" r="1.4" fill="currentColor" stroke="none" />
+    <Base {...props}>
+      <rect width="18" height="18" x="3" y="4" rx="4" />
+      <path d="M3 10h18" />
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
     </Base>
   );
 }
 
-export function IconePlano({ className }: IconeProps) {
+/** Prancheta — aba Plano. Mesmo desenho do assessor: é a planilha dele. */
+export function IconePlano(props: IconeProps) {
   return (
-    <Base className={className} traco={1.5}>
-      <path d="M4 7h16" />
-      <path d="M4 12h11" />
-      <path d="M4 17h6" />
+    <Base {...props}>
+      <rect width="8" height="4" x="8" y="2" rx="2" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <path d="M12 11h4" />
+      <path d="M8 11h.01" />
     </Base>
   );
 }
 
-/** Cronômetro — aba Correr. */
-export function IconeCronometro({ className }: IconeProps) {
+/** Play em círculo — aba Correr. */
+export function IconeGravar(props: IconeProps) {
   return (
-    <Base className={className} traco={1.5}>
-      <circle cx="12" cy="13.5" r="7.5" />
-      <path d="M12 13.5V9.5" />
-      <path d="M9.5 2.5h5" />
-      <path d="M12 2.5v3" />
+    <Base {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <polygon points="10 8 16 12 10 16 10 8" />
     </Base>
   );
 }
 
-export function IconePerfil({ className }: IconeProps) {
+/** Perfil — uma pessoa. */
+export function IconePerfil(props: IconeProps) {
   return (
-    <Base className={className} traco={1.5}>
-      <circle cx="12" cy="8.5" r="3.8" />
-      <path d="M5 20c0-3.4 3.1-5.8 7-5.8s7 2.4 7 5.8" />
+    <Base {...props}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M6 21v-1a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v1" />
     </Base>
   );
 }
 
-/* -------------------------------------------------------------------------- */
+/** Chevron para a esquerda — voltar. */
+export function IconeVoltar(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.2}>
+      <path d="m15 18-6-6 6-6" />
+    </Base>
+  );
+}
+
+/** Chevron para a direita — avançar e abrir. */
+export function IconeAvancar(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.2}>
+      <path d="m9 18 6-6-6-6" />
+    </Base>
+  );
+}
+
+/** Balão — recado do assessor. */
+export function IconeRecado(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </Base>
+  );
+}
+
+/** Coração — frequência cardíaca. */
+export function IconeBpm(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.4}>
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+    </Base>
+  );
+}
+
+/** Montanha — ganho de elevação. */
+export function IconeSubida(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.4}>
+      <path d="m3 18 6-9 4 5 3-4 5 8H3Z" />
+    </Base>
+  );
+}
+
+/** Pulso — quem está correndo agora. */
+export function IconePulso(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="M3 12h4l3 8 4-16 3 8h4" />
+    </Base>
+  );
+}
+
+/** Círculo cortado — treino que não rolou. */
+export function IconeNaoRolou(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="M10.7 4.3a9 9 0 0 1 9 9" />
+      <path d="M4.3 10.7a9 9 0 0 0 9 9" />
+      <path d="M2 2l20 20" />
+    </Base>
+  );
+}
+
+/** Círculo vazio — treino previsto. */
+export function IconePrevisto(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.4}>
+      <circle cx="12" cy="12" r="9" />
+    </Base>
+  );
+}
+
+/** Pausa. */
+export function IconePausar(props: IconeProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={props.className}>
+      <rect x="6" y="4" width="4.5" height="16" rx="1.6" />
+      <rect x="13.5" y="4" width="4.5" height="16" rx="1.6" />
+    </svg>
+  );
+}
+
+/** Parar. */
+export function IconeEncerrar(props: IconeProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={props.className}>
+      <rect x="5" y="5" width="14" height="14" rx="3" />
+    </svg>
+  );
+}
+
+/** Avião de papel — mandar um oi. */
+export function IconeEnviar(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.2}>
+      <path d="m22 2-7 20-4-9-9-4Z" />
+      <path d="M22 2 11 13" />
+    </Base>
+  );
+}
+
+/** Mais — novo treino. */
+export function IconeMais(props: IconeProps) {
+  return (
+    <Base {...props} traco={props.traco ?? 2.4}>
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
+    </Base>
+  );
+}
+
+/** Barras — biblioteca de treinos. */
+export function IconeBiblioteca(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="m16 6 4 14" />
+      <path d="M12 6v14" />
+      <path d="M8 8v12" />
+      <path d="M4 4v16" />
+    </Base>
+  );
+}
+
+/** Pessoa com traço — quem ainda não apareceu. */
+export function IconeSumido(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="M18 21a6 6 0 0 0-12 0" />
+      <circle cx="12" cy="11" r="4" />
+      <path d="M3 3l18 18" />
+    </Base>
+  );
+}
+
+/** Engrenagem — ajustes e privacidade. */
+export function IconeAjustes(props: IconeProps) {
+  return (
+    <Base {...props}>
+      <path d="M12.2 2h-.4a2 2 0 0 0-2 2v.2a2 2 0 0 1-1 1.7l-.4.2a2 2 0 0 1-2 0l-.2-.1a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.2.1a2 2 0 0 1 1 1.7v.5a2 2 0 0 1-1 1.7l-.2.2a2 2 0 0 0-.7 2.7l.2.3a2 2 0 0 0 2.7.8l.2-.1a2 2 0 0 1 2 0l.4.2a2 2 0 0 1 1 1.7V20a2 2 0 0 0 2 2h.4a2 2 0 0 0 2-2v-.2a2 2 0 0 1 1-1.7l.4-.2a2 2 0 0 1 2 0l.2.1a2 2 0 0 0 2.7-.8l.2-.3a2 2 0 0 0-.7-2.7l-.2-.2a2 2 0 0 1-1-1.7v-.5a2 2 0 0 1 1-1.7l.2-.1a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.2.1a2 2 0 0 1-2 0l-.4-.2a2 2 0 0 1-1-1.7V4a2 2 0 0 0-2-2z" />
+      <circle cx="12" cy="12" r="3" />
+    </Base>
+  );
+}
 
 /** Mapa de nome para componente, para o conteúdo poder escolher pelo nome. */
 export const ICONES = {
@@ -270,6 +416,12 @@ export const ICONES = {
   roadmap: IconeRoadmap,
   codigo: IconeCodigo,
   email: IconeEmail,
+  hoje: IconeHoje,
+  plano: IconePlano,
+  gravar: IconeGravar,
+  perfil: IconePerfil,
+  recado: IconeRecado,
+  biblioteca: IconeBiblioteca,
 } as const;
 
 export type NomeDeIcone = keyof typeof ICONES;

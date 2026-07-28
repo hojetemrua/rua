@@ -1,58 +1,83 @@
 import { cn } from "@/lib/cn";
-import { formatarDuracao } from "@/lib/formato";
 import { zona, type NumeroDeZona } from "@/lib/zonas";
 
-export type SegmentoDeZona = {
+export type FatiaDeZona = {
   zona: NumeroDeZona;
-  segundos: number;
+  /** Fração do tempo total, de 0 a 1. */
+  fracao: number;
 };
 
 type BarraZonasProps = {
-  segmentos: SegmentoDeZona[];
+  fatias: readonly FatiaDeZona[];
+  /**
+   * `fina` — tira de 8 a 10px para lista e cartão.
+   * `alta` — 34px com a sigla dentro, para a tela de Atividade.
+   */
+  altura?: "fina" | "alta";
   className?: string;
 };
 
 /**
- * TEMPO POR ZONA: uma barra segmentada nas cores funcionais, com legenda
- * textual embaixo. A cor nunca carrega a informação sozinha.
+ * TEMPO POR ZONA.
+ *
+ * Aqui a cor carrega dado, então é uma das poucas partes coloridas do
+ * projeto. Na variante alta a sigla vai escrita dentro da faixa; na fina, o
+ * texto vive no rótulo acessível — em nenhum dos casos a cor decide sozinha.
  */
-export function BarraZonas({ segmentos, className }: BarraZonasProps) {
-  const total = segmentos.reduce((soma, s) => soma + s.segundos, 0);
-  if (total <= 0) return null;
+export function BarraZonas({
+  fatias,
+  altura = "fina",
+  className,
+}: BarraZonasProps) {
+  const usadas = fatias.filter((f) => f.fracao > 0);
+  if (usadas.length === 0) return null;
 
-  const usados = segmentos.filter((s) => s.segundos > 0);
+  const total = usadas.reduce((soma, f) => soma + f.fracao, 0) || 1;
+
+  const descricao = usadas
+    .map((f) => {
+      const z = zona(f.zona);
+      return `${z.sigla} ${z.rotulo}: ${Math.round((f.fracao / total) * 100)}%`;
+    })
+    .join("; ");
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
-      <div className="flex h-3 w-full overflow-hidden rounded-full">
-        {usados.map((segmento) => (
-          <div
-            key={segmento.zona}
-            className={zona(segmento.zona).fundo}
-            style={{ width: `${(segmento.segundos / total) * 100}%` }}
-          />
-        ))}
-      </div>
+    <div
+      role="img"
+      aria-label={`Tempo por zona. ${descricao}.`}
+      className={cn(
+        "flex gap-[3px]",
+        altura === "alta" ? "h-[34px]" : "h-2.5",
+        className,
+      )}
+    >
+      {usadas.map((fatia) => {
+        const z = zona(fatia.zona);
+        const largura = `${(fatia.fracao / total) * 100}%`;
+        // A sigla só cabe a partir de uma fatia razoável.
+        const cabeRotulo = altura === "alta" && fatia.fracao / total >= 0.12;
 
-      <dl className="flex flex-wrap gap-x-5 gap-y-2">
-        {usados.map((segmento) => {
-          const z = zona(segmento.zona);
-          return (
-            <div key={segmento.zona} className="flex items-center gap-2">
+        return (
+          <div
+            key={fatia.zona}
+            style={{ width: largura }}
+            className={cn(
+              "flex items-center justify-center",
+              altura === "alta" ? "rounded-lg" : "rounded-full",
+              z.fundo,
+            )}
+          >
+            {cabeRotulo ? (
               <span
                 aria-hidden="true"
-                className={cn("size-2 shrink-0 rounded-full", z.fundo)}
-              />
-              <dt className="rotulo text-tinta-3">
-                {z.sigla} {z.rotulo}
-              </dt>
-              <dd className="numeros text-[13px] font-semibold text-tinta">
-                {formatarDuracao(segmento.segundos)}
-              </dd>
-            </div>
-          );
-        })}
-      </dl>
+                className={cn("numeros text-[12px] font-black", z.texto)}
+              >
+                {z.sigla}
+              </span>
+            ) : null}
+          </div>
+        );
+      })}
     </div>
   );
 }
