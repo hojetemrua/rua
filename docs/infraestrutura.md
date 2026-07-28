@@ -9,13 +9,42 @@ Vercel, nem chave do Resend, nem porta local.
 | serviço | estado | identificação |
 |---|---|---|
 | Supabase | no ar, migrações aplicadas | `meqlshmxfzvpctaieopj` · org `Rua` · `sa-east-1` |
-| Vercel | no ar, em produção | `rua4/rua` · <https://rua-ten.vercel.app> |
-| Resend | domínio cadastrado, **aguardando DNS** | `rua.run` · `sa-east-1` |
+| Vercel | no ar em **rua.run** | `rua4/rua` · `www` redireciona 308 para a raiz |
+| Resend | MX e SPF verificados, **DKIM pendente** | `rua.run` · `sa-east-1` |
 | GitHub | repo criado, **push bloqueado** | token sem acesso ao repositório |
 
 Verificado ponta a ponta em produção: o painel lê o banco
 (`R$ 0 de R$ 1.000`, 0 apoiadores), o formulário grava a inscrição e o Resend
 entrega o e-mail de confirmação. Lighthouse na produção: 93 / 100 / 100 / 100.
+
+## ⚠️ Regressão em aberto: oi@rua.run não recebe mais
+
+Ao trocar *Mail Settings* de "Email Forwarding" para "Custom MX", os cinco MX
+`eforward1..5` e o TXT de SPF da raiz foram removidos. Confirmado no
+autoritativo: `rua.run` está **sem MX e sem TXT**.
+
+Consequência: **`oi@rua.run` — o endereço de contato publicado no rodapé do
+site que já está no ar — não recebe e-mail nenhum.** Quem escrever recebe
+devolução.
+
+Para restaurar, em *Mail Settings → Custom MX*, adicionar ao lado do `send`:
+
+| tipo | host | valor | prioridade |
+|---|---|---|---|
+| MX | `@` | `eforward1.registrar-servers.com` | 10 |
+| MX | `@` | `eforward2.registrar-servers.com` | 10 |
+| MX | `@` | `eforward3.registrar-servers.com` | 10 |
+| MX | `@` | `eforward4.registrar-servers.com` | 15 |
+| MX | `@` | `eforward5.registrar-servers.com` | 20 |
+
+E em *Host Records*, o SPF do encaminhamento:
+
+| tipo | host | valor |
+|---|---|---|
+| TXT | `@` | `v=spf1 include:spf.efwd.registrar-servers.com ~all` |
+
+Este SPF na raiz **não** conflita com o do Resend, que fica em `send`. São
+hosts diferentes; o que quebraria seria dois SPF no mesmo host.
 
 ## DNS de rua.run (Namecheap → Advanced DNS)
 
