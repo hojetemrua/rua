@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { HEROI } from "@/conteudo/home";
-import { CAMINHO_FOTO_HEROI, temFotoDeHeroi } from "@/lib/foto-heroi";
+import {
+  BLUR_FOTO_HEROI,
+  CAMINHO_FOTO_HEROI,
+  FOTO_HEROI_NO_UNSPLASH,
+  temFotoDeHeroi,
+} from "@/lib/foto-heroi";
 import { FormularioListaEspera } from "./formulario-lista-espera";
 
 export function Heroi() {
@@ -14,7 +19,11 @@ export function Heroi() {
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover"
+          placeholder="blur"
+          blurDataURL={BLUR_FOTO_HEROI}
+          // A foto é retrato e a faixa é paisagem: o recorte prende no topo,
+          // onde estão as pernas em movimento, em vez de centralizar no asfalto.
+          className="-z-10 object-cover object-top"
         />
       ) : null}
 
@@ -54,7 +63,15 @@ export function Heroi() {
 
       {temFotoDeHeroi ? (
         <p className="absolute right-4 bottom-4 rounded-full border border-linha bg-papel px-3 py-1.5 font-texto text-[11px] text-tinta-3">
-          {HEROI.creditoDaFoto}
+          {HEROI.creditoDaFoto} /{" "}
+          <a
+            href={FOTO_HEROI_NO_UNSPLASH}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-tinta"
+          >
+            {HEROI.creditoDaFotoFonte}
+          </a>
         </p>
       ) : null}
     </section>

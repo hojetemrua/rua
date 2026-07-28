@@ -30,8 +30,11 @@ export const HEROI = {
     "mesmo lugar, de graça para todo mundo, para sempre. Não porque é " +
     "promoção — porque cobrar de alguém para correr nunca fez sentido.",
   apoioDoCampo: "Um aviso quando abrir. Nada além disso.",
-  // Crédito da foto do herói. Fica visível na página, como no protótipo.
-  creditoDaFoto: "Foto: Pierre-Antoine FRANCK / Unsplash",
+  // Crédito da foto do herói. Fica visível na página, como no protótipo, e
+  // aponta para a origem — o Unsplash não exige atribuição, mas creditar
+  // quem fez é o mínimo.
+  creditoDaFoto: "Foto: Pierre-Antoine FRANCK",
+  creditoDaFotoFonte: "Unsplash",
 } as const;
 
 export const QUEM_CORRE_NELA = {
