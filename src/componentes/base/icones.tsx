@@ -76,14 +76,18 @@ export function IconeEmail(props: IconeProps) {
   );
 }
 
-/** Tênis — o corredor. */
+/**
+ * Tênis — o corredor. É o `sport-shoe` do Lucide.
+ *
+ * O protótipo carregava uma variante antiga do mesmo ícone, de silhueta
+ * achatada; este é o desenho corrente da biblioteca.
+ */
 export function IconeCorredor(props: IconeProps) {
   return (
     <Base {...props}>
-      <path d="M2 16.5v-1.3c0-.7.4-1.4 1-1.7L6 12V8a2 2 0 0 1 2-2h1.8c.6 0 1.2.3 1.6.8l2.2 3c.3.4.8.7 1.3.9l4.3 1.2C20.6 12.3 22 13.3 22 15a2.5 2.5 0 0 1-2.5 2.5H3.5A1.5 1.5 0 0 1 2 16Z" />
-      <path d="m6.5 11.5 3.5-1.5" />
-      <path d="m10.5 8.5 2.5 2.5" />
-      <path d="M2 15h20" />
+      <path d="m15 10.42 4.8-5.07" />
+      <path d="M19 18h3" />
+      <path d="M9.5 22 21.414 9.415A2 2 0 0 0 21.2 6.4l-5.61-4.208A1 1 0 0 0 14 3v2a2 2 0 0 1-1.394 1.906L8.677 8.053A1 1 0 0 0 8 9c-.155 6.393-2.082 9-4 9a2 2 0 0 0 0 4h14" />
     </Base>
   );
 }
