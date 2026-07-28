@@ -10,41 +10,12 @@ Vercel, nem chave do Resend, nem porta local.
 |---|---|---|
 | Supabase | no ar, migrações aplicadas | `meqlshmxfzvpctaieopj` · org `Rua` · `sa-east-1` |
 | Vercel | no ar em **rua.run** | `rua4/rua` · `www` redireciona 308 para a raiz |
-| Resend | MX e SPF verificados, **DKIM pendente** | `rua.run` · `sa-east-1` |
-| GitHub | repo criado, **push bloqueado** | token sem acesso ao repositório |
+| Resend | **verificado**, enviando de `oi@rua.run` | `rua.run` · `sa-east-1` |
+| GitHub | publicado, AGPL-3.0 | <https://github.com/hojetemrua/rua> |
 
 Verificado ponta a ponta em produção: o painel lê o banco
 (`R$ 0 de R$ 1.000`, 0 apoiadores), o formulário grava a inscrição e o Resend
 entrega o e-mail de confirmação. Lighthouse na produção: 93 / 100 / 100 / 100.
-
-## ⚠️ Regressão em aberto: oi@rua.run não recebe mais
-
-Ao trocar *Mail Settings* de "Email Forwarding" para "Custom MX", os cinco MX
-`eforward1..5` e o TXT de SPF da raiz foram removidos. Confirmado no
-autoritativo: `rua.run` está **sem MX e sem TXT**.
-
-Consequência: **`oi@rua.run` — o endereço de contato publicado no rodapé do
-site que já está no ar — não recebe e-mail nenhum.** Quem escrever recebe
-devolução.
-
-Para restaurar, em *Mail Settings → Custom MX*, adicionar ao lado do `send`:
-
-| tipo | host | valor | prioridade |
-|---|---|---|---|
-| MX | `@` | `eforward1.registrar-servers.com` | 10 |
-| MX | `@` | `eforward2.registrar-servers.com` | 10 |
-| MX | `@` | `eforward3.registrar-servers.com` | 10 |
-| MX | `@` | `eforward4.registrar-servers.com` | 15 |
-| MX | `@` | `eforward5.registrar-servers.com` | 20 |
-
-E em *Host Records*, o SPF do encaminhamento:
-
-| tipo | host | valor |
-|---|---|---|
-| TXT | `@` | `v=spf1 include:spf.efwd.registrar-servers.com ~all` |
-
-Este SPF na raiz **não** conflita com o do Resend, que fica em `send`. São
-hosts diferentes; o que quebraria seria dois SPF no mesmo host.
 
 ## DNS de rua.run (Namecheap → Advanced DNS)
 
@@ -108,30 +79,28 @@ npx vercel deploy --prod --yes --token "$VERCEL_TOKEN"
 
 ### Pendências
 
-1. **Token do GitHub sem acesso ao repositório.** O repo `hojetemrua/rua` já
-   existe (público, vazio), mas o token fine-grained foi criado *antes* dele e
-   não o inclui na seleção — o push volta 403. Em
-   <https://github.com/settings/tokens?type=beta>, editar o token: em
-   *Repository access* marcar `rua` (ou "All repositories") e confirmar
-   *Contents: Read and write*. Depois: `git push -u origin main`.
-2. **Resend aguardando DNS.** Domínio `rua.run` já cadastrado
-   (`8e1726e7-6819-4b3a-b5bd-dd4ee697936a`, região `sa-east-1`), estado
-   `not_started` até os registros subirem. Enquanto isso só entrega para
-   `hojetemrua@gmail.com`; qualquer outro destinatário volta 403. Quem se
-   inscrever hoje **entra na lista mas não recebe o e-mail** — a inscrição não
-   quebra, por desenho.
-3. **Licença.** O repositório é público, e sem arquivo `LICENSE` o padrão legal
-   é "todos os direitos reservados" — o oposto do que o rodapé promete em
-   "Código e licença" e "De todos, para sempre". Escolher a licença é decisão
-   de dono, não minha.
-4. **Copy em rascunho no ar.** O manifesto do herói e o texto de origem são
+1. **Copy em rascunho no ar.** O manifesto do herói e o texto de origem são
    rascunho meu, não o texto do protótipo — e estão públicos em
    `rua-ten.vercel.app`. Trocar em `src/conteudo/home.ts` antes de divulgar.
-5. **Custo do mês.** `transparencia_meses` tem só julho/2026, com
+2. **Custo do mês.** `transparencia_meses` tem só julho/2026, com
    `custo_centavos = 100000`. É o número do handoff, não uma conta real
    conferida — e **todo mês precisa de uma linha nova**, senão a home passa a
    mostrar o mês anterior.
-6. **Sem limite de taxa** em `entrar_na_lista`. Turnstile antes de divulgar.
+3. **Sem limite de taxa** em `entrar_na_lista`. Turnstile antes de divulgar.
+4. **TRADEMARK.md é rascunho** — afirma registro de marca, que depende de
+   trâmite no INPI. Precisa de revisão jurídica.
+5. **Descrição do repositório vazia** — o token não tem permissão
+   *Administration*, então isso é um campo na interface do GitHub.
+
+## Empurrando para o GitHub
+
+O `git push origin main` pega a credencial de outra conta no Keychain do macOS
+e volta 403. Use o token do arquivo:
+
+```bash
+set -a; . ./.env.deploy; set +a
+git push "https://x-access-token:${GITHUB_TOKEN}@github.com/hojetemrua/rua.git" main:main
+```
 
 ## Portas locais
 
