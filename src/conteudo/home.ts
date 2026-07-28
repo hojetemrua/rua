@@ -1,40 +1,33 @@
 /**
  * Todo o texto da home em um só lugar.
  *
- * ⚠️ DOIS BLOCOS ESTÃO EM RASCUNHO
- *
- * O handoff descreve "o manifesto completo" (herói) e "o texto de origem"
- * (seção Por que gratuito) sem transcrevê-los, e os protótipos HTML não estão
- * no repositório. Os campos marcados com RASCUNHO abaixo foram escritos na voz
- * do restante da copy para a página não ficar com buraco — mas NÃO são o texto
- * definitivo. Substituir pelos originais de Home_rua_run.html antes de publicar.
- *
- * Todo o resto é literal do handoff.
+ * Transcrito de "Home rua.run" no Claude Design. O manifesto e o texto de
+ * origem que antes estavam marcados como RASCUNHO foram substituídos pelos
+ * definitivos.
  */
 
 export const NAVEGACAO = [
   { rotulo: "Quem corre nela", href: "#quem-corre-nela" },
   { rotulo: "Por que gratuito", href: "#por-que-gratuito" },
   { rotulo: "Como funciona", href: "#como-funciona" },
-  { rotulo: "Me avisa", href: "#me-avisa" },
 ] as const;
 
 export const HEROI = {
   selo: "ABRE EM 2026 · LISTA ABERTA",
   titulo: ["LIVRE PARA", "CORRER."],
-  // RASCUNHO — substituir pelo manifesto completo do protótipo.
   manifesto:
-    "A rua não cobra pedágio. Não tem catraca, não tem plano melhor, não tem " +
-    "versão que corre mais rápido se você pagar. O Rua é o aplicativo dessa " +
-    "rua: o treino registrado, a planilha do assessor e a turma do bairro no " +
-    "mesmo lugar, de graça para todo mundo, para sempre. Não porque é " +
-    "promoção — porque cobrar de alguém para correr nunca fez sentido.",
+    "A rua nunca te cobrou nada. Nunca pediu cadastro, nunca trancou " +
+    "recurso, nunca chamou ninguém de usuário. A rua é de todos: do primeiro " +
+    "km ao recorde, do chinelo ao carbono. Livre para correr. Livre para " +
+    "evoluir. Livre para se conectar. Sustentada por quem corre nela. De " +
+    "todos, para sempre.",
+  /** Fecha o manifesto, em Archivo 900. */
+  assinaturaDoManifesto: "Rua.",
   apoioDoCampo: "Um aviso quando abrir. Nada além disso.",
-  // Crédito da foto do herói. Fica visível na página, como no protótipo, e
-  // aponta para a origem — o Unsplash não exige atribuição, mas creditar
-  // quem fez é o mínimo.
-  creditoDaFoto: "Foto: Pierre-Antoine FRANCK",
-  creditoDaFotoFonte: "Unsplash",
+  fotoDe: "Foto de",
+  fotoEm: "na",
+  fotografo: "Pierre-Antoine FRANCK",
+  fonteDaFoto: "Unsplash",
 } as const;
 
 export const QUEM_CORRE_NELA = {
@@ -43,18 +36,21 @@ export const QUEM_CORRE_NELA = {
     "Corredor, assessor e comunidade no mesmo lugar — e ninguém paga para estar nele.",
   blocos: [
     {
+      icone: "corredor",
       titulo: "Corredor",
       texto:
         "Registra o treino, vê o pace, acompanha a constância. Tudo, de graça. " +
         "Nenhum recurso trancado — hoje nem em 2030.",
     },
     {
+      icone: "assessor",
       titulo: "Assessor",
       texto:
         "Monta planilha e acompanha a turma inteira sem mensalidade e sem " +
         "comissão. O que você cobra do aluno é seu, inteiro.",
     },
     {
+      icone: "comunidade",
       titulo: "Comunidade",
       texto:
         "Encontro marcado, grupo aberto, ponto de partida no mapa. Quem chegar, corre.",
@@ -65,18 +61,18 @@ export const QUEM_CORRE_NELA = {
 export const POR_QUE_GRATUITO = {
   rotulo: "Por que gratuito?",
   titulo: "Começou com um corredor querendo dividir o que achou.",
-  // RASCUNHO — substituir pelo texto de origem do protótipo (Davi X Rodrigues).
   origem:
-    "Eu comecei a correr sozinho, com um aplicativo que guardava metade das " +
-    "coisas atrás de um plano pago. Fui atrás de montar o que eu queria ver na " +
-    "tela e, quando ficou de pé, achei mais sentido dividir do que vender. O " +
-    "Rua nasceu daí. Manter isso no ar tem um custo, e esse custo está logo " +
-    "abaixo, aberto, mês a mês — é a única coisa que eu peço.",
-  assinatura: "Davi X Rodrigues",
+    "Davi X Rodrigues começou sozinho, sem relógio e sem ninguém esperando na " +
+    "esquina. Depois achou um grupo, e o grupo virou rotina. Hoje treina com " +
+    "assessor e sabe o quanto isso mudou a corrida dele. Só que quanto mais " +
+    "fundo ele entrava nesse mundo, mais crescia uma vontade meio teimosa: " +
+    "colocar mais gente na rua sentindo essa mesma liberdade — do jeito que " +
+    "der, sem depender de quanto cada um pode investir. O Rua é isso, e nada " +
+    "além disso.",
   marcadores: [
-    "apoio mensal do valor que der, cancelável a qualquer hora",
-    "quem apoia não ganha recurso extra, ganha o app de pé",
-    "cada nível alcançado fica publicado aqui, com o número real",
+    "Apoio mensal, do valor que der, cancelável a qualquer hora",
+    "Quem apoia não ganha recurso extra — ganha o app de pé",
+    "Cada nível alcançado fica publicado aqui, com o número real",
   ],
 } as const;
 
@@ -91,17 +87,20 @@ export const COMO_FUNCIONA = {
   passos: [
     {
       numero: "01",
+      icone: "abrir",
       titulo: "Abrir",
       texto: "O treino do dia já está na tela. Um botão só: Bora.",
     },
     {
       numero: "02",
+      icone: "correr",
       titulo: "Correr",
       texto:
         "Número gigante, nada piscando, legível no sol. Guarda o celular.",
     },
     {
       numero: "03",
+      icone: "fechar",
       titulo: "Fechar",
       texto: "Traçado, splits e zonas na hora. E o recado do assessor.",
     },
@@ -112,6 +111,7 @@ export const FECHO = {
   titulo: "A rua está aberta.",
   texto:
     "Entra na lista e te chamamos quando abrir. Sem fila paga, sem convite especial.",
+  botao: "Me avisa",
 } as const;
 
 export const RODAPE = {
@@ -119,11 +119,22 @@ export const RODAPE = {
   subLema: "De todos, para sempre.",
   ondeAGenteFala: {
     rotulo: "Onde a gente fala",
-    perfil: "@hojetemrua",
-    redes: [
-      { rotulo: "Instagram", href: "https://instagram.com/hojetemrua" },
-      { rotulo: "TikTok", href: "https://tiktok.com/@hojetemrua" },
-      { rotulo: "YouTube", href: "https://youtube.com/@hojetemrua" },
+    perfis: [
+      {
+        icone: "instagram",
+        rotulo: "@hojetemrua",
+        href: "https://instagram.com/hojetemrua",
+      },
+      {
+        icone: "tiktok",
+        rotulo: "@hojetemrua",
+        href: "https://tiktok.com/@hojetemrua",
+      },
+      {
+        icone: "youtube",
+        rotulo: "@hojetemrua",
+        href: "https://youtube.com/@hojetemrua",
+      },
     ],
   },
   transparencia: {
@@ -131,9 +142,10 @@ export const RODAPE = {
     // Contas do mês e Roadmap ganham página própria mais adiante; hoje o dado
     // real dos dois vive no painel Sinal Aberto, então é para lá que apontam.
     links: [
-      { rotulo: "Contas do mês", href: "#sinal-aberto" },
-      { rotulo: "Roadmap público", href: "#sinal-aberto" },
+      { icone: "contas", rotulo: "Contas do mês", href: "#por-que-gratuito" },
+      { icone: "roadmap", rotulo: "Roadmap público", href: "#por-que-gratuito" },
       {
+        icone: "codigo",
         rotulo: "Código e licença",
         href: "https://github.com/hojetemrua/rua",
         externo: true,
@@ -142,15 +154,17 @@ export const RODAPE = {
   },
   contato: {
     rotulo: "Contato",
-    email: "oi@rua.run",
+    links: [
+      { icone: "email", rotulo: "oi@rua.run", href: "mailto:oi@rua.run" },
+      { icone: "assessor", rotulo: "Sou assessor", href: "/assessor/turma" },
+    ],
   },
-  souAssessor: { rotulo: "Sou assessor", href: "/assessor/turma" },
   assinatura: "rua.run · 2026",
 } as const;
 
 export const LISTA_ESPERA = {
   rotuloDoCampo: "Seu e-mail",
-  placeholder: "voce@email.com",
+  placeholder: "seu e-mail",
   botao: "Me avisa",
   sucesso: "Pronto. Te chamamos quando abrir.",
   erroGenerico: "Não deu para gravar agora. Tenta de novo em um instante.",

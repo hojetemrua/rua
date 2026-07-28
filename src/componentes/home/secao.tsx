@@ -5,29 +5,26 @@ export function Secao({
   children,
   id,
   className,
-  comBorda = true,
 }: {
   children: React.ReactNode;
   id?: string;
   className?: string;
-  comBorda?: boolean;
 }) {
   return (
     <section
       id={id}
-      // scroll-mt compensa a âncora da navegação do topo.
-      className={cn(
-        "scroll-mt-20 px-6 py-16 sm:px-8 sm:py-24",
-        comBorda && "border-b border-linha",
-        className,
-      )}
+      // scroll-mt compensa o cabeçalho fixo quando a âncora é usada.
+      className={cn("scroll-mt-24 px-6 pt-24 sm:px-10", className)}
     >
-      <div className="mx-auto w-full max-w-[1120px]">{children}</div>
+      <div className="mx-auto w-full max-w-[1240px]">{children}</div>
     </section>
   );
 }
 
-/** Título de seção: Archivo 900, apertado. */
+/**
+ * Título de seção: Archivo 900, largura 94% e espacejamento fechado.
+ * `font-stretch` depende do eixo wdth carregado no layout raiz.
+ */
 export function TituloSecao({
   children,
   className,
@@ -38,11 +35,17 @@ export function TituloSecao({
   return (
     <h2
       className={cn(
-        "font-ui text-[34px] leading-[1.02] font-black tracking-[-0.02em] text-tinta sm:text-[46px]",
+        "m-0 font-ui text-[clamp(36px,4.2vw,56px)] leading-[0.94] font-black tracking-[-0.035em]",
         className,
       )}
+      style={{ fontStretch: "94%" }}
     >
       {children}
     </h2>
   );
+}
+
+/** Fio de 1px que separa cabeçalho de seção do conteúdo. */
+export function Fio({ className }: { className?: string }) {
+  return <div className={cn("h-px bg-linha", className)} />;
 }

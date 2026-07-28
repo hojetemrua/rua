@@ -87,6 +87,11 @@ export function formatarMesPorExtenso(iso: string): string {
   return mesLongoUtc.format(dataDeIso(iso)).toUpperCase();
 }
 
+/** `"2026-07-01"` → `"JULHO 2026"` — a forma curta usada no painel. */
+export function formatarMesCurto(iso: string): string {
+  return formatarMesPorExtenso(iso).replace(" DE ", " ");
+}
+
 const diaCompletoUtc = new Intl.DateTimeFormat("pt-BR", {
   weekday: "long",
   day: "numeric",

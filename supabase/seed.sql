@@ -17,13 +17,14 @@ delete from auth.users where email like '%@exemplo.rua.run';
 -- Níveis do Sinal Aberto
 -- -----------------------------------------------------------------------------
 
-insert into public.niveis_sinal_aberto (nivel, titulo, meta_centavos) values
-  (1, 'Servidor de pé para 5.000 corredores', 100000),
-  (2, 'Mapa e traçado sem limite',            240000),
-  (3, 'Painel do assessor liberado',          430000),
-  (4, 'Um ano garantido na frente',           700000)
+insert into public.niveis_sinal_aberto (nivel, titulo, subtitulo, meta_centavos) values
+  (1, 'Servidor de pé para 5.000 corredores', null,                          100000),
+  (2, 'Mapa e traçado sem limite',            'para todo mundo, todo dia',   240000),
+  (3, 'Painel do assessor liberado',          'turma inteira, sem comissão', 430000),
+  (4, 'Um ano garantido na frente',           'a rua não fecha em ano magro',700000)
 on conflict (nivel) do update
   set titulo = excluded.titulo,
+      subtitulo = excluded.subtitulo,
       meta_centavos = excluded.meta_centavos;
 
 -- -----------------------------------------------------------------------------

@@ -7,6 +7,8 @@ export const ETIQUETA_SINAL_ABERTO = "sinal-aberto";
 export type NivelSinalAberto = {
   nivel: number;
   titulo: string;
+  /** Linha de apoio abaixo do título, ex.: "para todo mundo, todo dia". */
+  subtitulo: string | null;
   metaCentavos: number;
   alcancadoEm: string | null;
 };
@@ -43,18 +45,21 @@ const SEMENTE: SinalAberto = {
     {
       nivel: 2,
       titulo: "Mapa e traçado sem limite",
+      subtitulo: "para todo mundo, todo dia",
       metaCentavos: 240_000,
       alcancadoEm: null,
     },
     {
       nivel: 3,
       titulo: "Painel do assessor liberado",
+      subtitulo: "turma inteira, sem comissão",
       metaCentavos: 430_000,
       alcancadoEm: null,
     },
     {
       nivel: 4,
       titulo: "Um ano garantido na frente",
+      subtitulo: "a rua não fecha em ano magro",
       metaCentavos: 700_000,
       alcancadoEm: null,
     },
@@ -74,6 +79,7 @@ type LinhaResumo = {
 type LinhaNivel = {
   nivel: number;
   titulo: string;
+  subtitulo: string | null;
   meta_centavos: number;
   alcancado_em: string | null;
 };
@@ -86,7 +92,7 @@ async function buscarNoBanco(): Promise<SinalAberto | null> {
     supabase.rpc("resumo_sinal_aberto").maybeSingle<LinhaResumo>(),
     supabase
       .from("niveis_sinal_aberto")
-      .select("nivel, titulo, meta_centavos, alcancado_em")
+      .select("nivel, titulo, subtitulo, meta_centavos, alcancado_em")
       .order("nivel", { ascending: true })
       .returns<LinhaNivel[]>(),
   ]);
@@ -107,6 +113,7 @@ async function buscarNoBanco(): Promise<SinalAberto | null> {
       .map((n) => ({
         nivel: n.nivel,
         titulo: n.titulo,
+        subtitulo: n.subtitulo,
         metaCentavos: n.meta_centavos,
         alcancadoEm: n.alcancado_em,
       })),

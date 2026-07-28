@@ -23,9 +23,13 @@ export const CAMINHO_FOTO_HEROI = `/heroi/${NOME_DO_ARQUIVO}`;
 export const LARGURA_FOTO_HEROI = 2400;
 export const ALTURA_FOTO_HEROI = 3600;
 
-/** Identificador da foto no Unsplash, para o crédito apontar para a origem. */
+/** A foto no Unsplash, para o crédito apontar para a origem. */
 export const FOTO_HEROI_NO_UNSPLASH =
-  "https://unsplash.com/photos/W2pBsQaT6FQ";
+  "https://unsplash.com/pt-br/fotografias/corredores-em-movimento-durante-uma-corrida-W2pBsQaT6FQ";
+
+/** Perfil de quem fez a foto. */
+export const PERFIL_DO_FOTOGRAFO =
+  "https://unsplash.com/pt-br/@pierreantoinef";
 
 /**
  * Miniatura de 12px embutida, exibida enquanto a foto carrega. Evita o salto

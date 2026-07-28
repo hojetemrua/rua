@@ -1,39 +1,50 @@
-import { RotuloSecao } from "@/componentes/base/rotulo-secao";
+import { IconeConfirmado, IconeCorredor } from "@/componentes/base/icones";
 import { POR_QUE_GRATUITO } from "@/conteudo/home";
-import { Secao, TituloSecao } from "./secao";
+import { Secao } from "./secao";
+import { PainelSinalAberto } from "./painel-sinal-aberto";
 
+/**
+ * Único bloco escuro da home. A inversão marca a seção onde o projeto fala de
+ * dinheiro — e o painel com as contas abertas vive dentro dela, não ao lado.
+ */
 export function PorQueGratuito() {
   return (
     <Secao id="por-que-gratuito">
-      <RotuloSecao como="p">{POR_QUE_GRATUITO.rotulo}</RotuloSecao>
+      <div className="rounded-bloco bg-tinta px-7 py-14 text-papel sm:px-12">
+        <div className="grid items-start gap-12 lg:grid-cols-2">
+          <div>
+            <p className="flex items-center gap-[9px] opacity-65">
+              <IconeCorredor className="size-[15px]" />
+              <span className="font-ui text-[11px] font-extrabold tracking-[0.16em] uppercase">
+                {POR_QUE_GRATUITO.rotulo}
+              </span>
+            </p>
 
-      <TituloSecao className="mt-5 max-w-[36rem]">
-        {POR_QUE_GRATUITO.titulo}
-      </TituloSecao>
+            <h2
+              className="mt-[18px] font-ui text-[clamp(38px,4.4vw,60px)] leading-[0.92] font-black tracking-[-0.04em]"
+              style={{ fontStretch: "92%" }}
+            >
+              {POR_QUE_GRATUITO.titulo}
+            </h2>
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]">
-        <div>
-          <p className="max-w-[36rem] font-texto text-[17px] leading-relaxed text-tinta-2">
-            {POR_QUE_GRATUITO.origem}
-          </p>
-          <p className="mt-5 font-ui text-[14px] font-semibold text-tinta">
-            {POR_QUE_GRATUITO.assinatura}
-          </p>
+            <p className="mt-[22px] max-w-[52ch] font-texto text-[16.5px] leading-[1.68] text-pretty opacity-86">
+              {POR_QUE_GRATUITO.origem}
+            </p>
+
+            <div className="mt-[30px] mb-6 h-px bg-branco/22" />
+
+            <ul className="flex flex-col gap-3.5">
+              {POR_QUE_GRATUITO.marcadores.map((marcador) => (
+                <li key={marcador} className="flex items-center gap-3">
+                  <IconeConfirmado className="size-[17px] shrink-0" />
+                  <span className="font-texto text-[15.5px]">{marcador}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <PainelSinalAberto />
         </div>
-
-        <ul className="flex flex-col gap-4 border-t border-linha pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
-          {POR_QUE_GRATUITO.marcadores.map((marcador) => (
-            <li key={marcador} className="flex gap-3">
-              <span
-                aria-hidden="true"
-                className="mt-2 size-1.5 shrink-0 rounded-full bg-tinta"
-              />
-              <p className="font-texto text-[15px] leading-relaxed text-tinta-2">
-                {marcador}
-              </p>
-            </li>
-          ))}
-        </ul>
       </div>
     </Secao>
   );

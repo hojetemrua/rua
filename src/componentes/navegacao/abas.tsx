@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   IconeComunidade,
-  IconeCorrer,
+  IconeCronometro,
   IconeHoje,
   IconePerfil,
   IconePlano,
@@ -15,7 +15,7 @@ import { cn } from "@/lib/cn";
 export const ABAS = [
   { href: "/hoje", rotulo: "Hoje", Icone: IconeHoje },
   { href: "/plano", rotulo: "Plano", Icone: IconePlano },
-  { href: "/correr", rotulo: "Correr", Icone: IconeCorrer },
+  { href: "/correr", rotulo: "Correr", Icone: IconeCronometro },
   { href: "/comunidade", rotulo: "Comunidade", Icone: IconeComunidade },
   { href: "/perfil", rotulo: "Perfil", Icone: IconePerfil },
 ] as const;

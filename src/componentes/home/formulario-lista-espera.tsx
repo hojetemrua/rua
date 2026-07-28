@@ -1,9 +1,12 @@
 "use client";
 
 import { useActionState } from "react";
-import { Botao } from "@/componentes/base/botao";
-import { IconeConfirmado } from "@/componentes/base/icones";
-import { LISTA_ESPERA } from "@/conteudo/home";
+import {
+  IconeConfirmado,
+  IconeEmail,
+  IconeSeta,
+} from "@/componentes/base/icones";
+import { HEROI, LISTA_ESPERA } from "@/conteudo/home";
 import { cn } from "@/lib/cn";
 import { entrarNaLista } from "@/acoes/lista-espera";
 import {
@@ -14,7 +17,7 @@ import {
 type FormularioProps = {
   /** De onde partiu a inscrição: "heroi" ou "fecho". */
   origem: string;
-  /** Sufixo do id do campo — a home tem dois formulários na mesma página. */
+  /** Sufixo do id do campo — a home tem mais de um formulário na página. */
   id: string;
   className?: string;
 };
@@ -36,12 +39,12 @@ export function FormularioListaEspera({
     return (
       <p
         className={cn(
-          "flex items-center gap-3 font-ui text-[17px] font-semibold text-tinta",
+          "flex items-center gap-3 font-ui text-[17px] font-extrabold",
           className,
         )}
         role="status"
       >
-        <IconeConfirmado className="size-5 shrink-0" />
+        <IconeConfirmado className="size-5 shrink-0 text-tracado" />
         {LISTA_ESPERA.sucesso}
       </p>
     );
@@ -50,49 +53,58 @@ export function FormularioListaEspera({
   const comErro = estado.estado === "erro";
 
   return (
-    <form action={acao} className={cn("flex flex-col gap-3", className)}>
+    <form action={acao} className={className}>
       <input type="hidden" name="origem" value={origem} />
 
       <label htmlFor={idCampo} className="sr-only">
         {LISTA_ESPERA.rotuloDoCampo}
       </label>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <input
-          id={idCampo}
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          inputMode="email"
-          placeholder={LISTA_ESPERA.placeholder}
-          aria-invalid={comErro || undefined}
-          aria-describedby={comErro ? idErro : undefined}
+      <div className="flex flex-wrap items-center gap-2.5">
+        <div
           className={cn(
-            "h-14 min-w-0 flex-1 rounded-full border bg-branco px-6 font-texto text-[16px] text-tinta",
-            "placeholder:text-tinta-3",
-            comErro ? "border-tinta" : "border-linha",
+            "flex flex-[1_1_300px] items-center gap-3 rounded-full border-[1.5px] bg-branco px-[22px]",
+            comErro ? "border-z4" : "border-tinta",
           )}
-        />
-        <Botao
+        >
+          <IconeEmail className="size-[19px] shrink-0 text-tinta-3" />
+          <input
+            id={idCampo}
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            inputMode="email"
+            placeholder={LISTA_ESPERA.placeholder}
+            aria-invalid={comErro || undefined}
+            aria-describedby={comErro ? idErro : undefined}
+            className="w-full border-0 bg-transparent py-[18px] font-texto text-[16px] text-tinta outline-none placeholder:text-tinta-3"
+          />
+        </div>
+
+        <button
           type="submit"
-          tamanho="grande"
           disabled={pendente}
-          className="shrink-0"
+          className="inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-tinta px-[30px] py-[19px] font-ui text-[17px] font-extrabold text-papel transition-colors hover:bg-tinta-2 disabled:bg-linha disabled:text-tinta-3"
         >
           {pendente ? "Um instante…" : LISTA_ESPERA.botao}
-        </Botao>
+          {pendente ? null : <IconeSeta className="size-[17px]" />}
+        </button>
       </div>
 
       {comErro ? (
         <p
           id={idErro}
           role="alert"
-          className="font-texto text-[14px] font-medium text-tinta"
+          className="mt-3 font-texto text-[14px] font-medium text-tinta"
         >
           {estado.mensagem}
         </p>
-      ) : null}
+      ) : (
+        <p className="mt-3 font-texto text-[13px] text-tinta-3">
+          {HEROI.apoioDoCampo}
+        </p>
+      )}
     </form>
   );
 }

@@ -3,10 +3,14 @@ import { Archivo, Inter, Overpass } from "next/font/google";
 import "./globals.css";
 
 // Archivo — interface, títulos, rótulos.
+// O eixo `wdth` é carregado porque os títulos do design usam `font-stretch`
+// entre 90% e 94% para fechar o espacejamento. Sem o eixo, o navegador ignora
+// a propriedade e os títulos saem mais largos do que o desenho.
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--fonte-archivo",
   display: "swap",
+  axes: ["wdth"],
 });
 
 // Inter — texto corrido.

@@ -59,6 +59,23 @@
   --r-sm: 14px; /* elementos menores */
   --r-home: 24px; /* cartões na home */
   --r-sm-home: 16px; /* elementos menores na home */
+  --r-bloco: 32px; /* blocos grandes da home: seção escura e fecho */
+  --r-foto: 28px; /* cartão da foto do herói */
+
+  /*
+   * DIVERGÊNCIA DO HANDOFF — o design venceu.
+   *
+   * O handoff afirma "Zero box-shadow. Zero gradient. Verificado nos dois
+   * protótipos: não existe nenhum." O protótipo tem, e usa: `--sh` está
+   * declarado e aplicado nos cartões da home. Como o handoff manda o design
+   * vencer no visual, a sombra fica — mas registrada aqui, porque contraria
+   * uma regra que o próprio documento chama de absoluta.
+   *
+   * É uma sombra de contato, quase imperceptível: a elevação continua vindo
+   * principalmente da borda.
+   */
+  --sh:
+    0 1px 2px rgba(18, 18, 22, 0.04), 0 16px 40px -26px rgba(18, 18, 22, 0.22);
 
   /* tipografia */
   --ui: var(--fonte-archivo), system-ui, sans-serif; /* interface, títulos, rótulos */
@@ -92,6 +109,10 @@
   --radius-pequeno: var(--r-sm);
   --radius-cartao-home: var(--r-home);
   --radius-pequeno-home: var(--r-sm-home);
+  --radius-bloco: var(--r-bloco);
+  --radius-foto: var(--r-foto);
+
+  --shadow-cartao: var(--sh);
 
   --font-ui: var(--ui);
   --font-texto: var(--txt);
@@ -127,6 +148,21 @@
   ::selection {
     background-color: var(--ink);
     color: var(--paper);
+  }
+
+  /*
+   * Link em repouso é tinta; em hover vira traçado.
+   * Outra divergência do handoff, que reserva a cor funcional para traçado e
+   * zonas — o protótipo usa `a:hover{color:var(--trace)}` de forma global, e
+   * o design vence no visual.
+   */
+  a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--trace);
   }
 }
 
