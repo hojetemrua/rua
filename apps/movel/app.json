@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Rua",
+    "slug": "rua",
+    "scheme": "rua",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "backgroundColor": "#FAFAF8",
+    "ios": {
+      "bundleIdentifier": "run.rua.app",
+      "supportsTablet": false,
+      "infoPlist": {
+        "UIBackgroundModes": ["location"],
+        "NSLocationWhenInUseUsageDescription": "A Rua usa sua localização durante a corrida para medir distância, pace e traçado. Nada é gravado quando você não está correndo.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "A Rua usa sua localização durante a corrida para medir distância, pace e traçado. Nada é gravado quando você não está correndo."
+      }
+    },
+    "android": {
+      "package": "run.rua.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_LOCATION"
+      ]
+    },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}

@@ -1,6 +1,5 @@
 {
   "name": "rua",
-  "version": "0.1.0",
   "private": true,
   "description": "Plataforma de corrida livre. De todos, para sempre.",
   "license": "AGPL-3.0-or-later",
@@ -9,29 +8,21 @@
     "type": "git",
     "url": "git+https://github.com/hojetemrua/rua.git"
   },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=20"
   },
-  "dependencies": {
-    "@supabase/ssr": "^0.12.3",
-    "@supabase/supabase-js": "^2.110.8",
-    "next": "16.2.12",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "resend": "^6.18.0"
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "tipos": "turbo tipos",
+    "teste": "turbo teste",
+    "lint": "turbo lint",
+    "web": "pnpm --filter @rua/web",
+    "movel": "pnpm --filter @rua/movel"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.12",
-    "supabase": "^2.109.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "turbo": "^2.5.8",
+    "typescript": "^5.9.3"
   }
 }

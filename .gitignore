@@ -1,7 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+# Sem barra na frente: pega node_modules em qualquer profundidade do monorepo.
+node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -43,3 +44,13 @@ yarn-error.log*
 next-env.d.ts
 .env.local
 .env
+
+# monorepo
+.turbo
+apps/*/.next
+apps/*/.expo
+pacotes/*/dist
+
+# protótipos pesados de design (ver design/LEIA-ME.md)
+design/*.html
+!design/App_logado_dc.html

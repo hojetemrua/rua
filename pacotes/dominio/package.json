@@ -1,0 +1,19 @@
+{
+  "name": "@rua/dominio",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "./src/indice.ts",
+  "types": "./src/indice.ts",
+  "exports": { ".": "./src/indice.ts" },
+  "scripts": {
+    "tipos": "tsc --noEmit",
+    "teste": "vitest run",
+    "teste:ver": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

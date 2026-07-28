@@ -1,0 +1,10 @@
+packages:
+  - "apps/*"
+  - "pacotes/*"
+
+# Estes três precisam rodar script de instalação: sharp para o otimizador de
+# imagem do Next, esbuild para o Vitest, unrs-resolver para o ESLint.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver

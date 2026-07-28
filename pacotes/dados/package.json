@@ -1,0 +1,21 @@
+{
+  "name": "@rua/dados",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "./src/indice.ts",
+  "types": "./src/indice.ts",
+  "exports": { ".": "./src/indice.ts" },
+  "scripts": {
+    "tipos": "tsc --noEmit",
+    "gerar-tipos": "supabase gen types typescript --project-id meqlshmxfzvpctaieopj --schema public > src/banco.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.8"
+  },
+  "devDependencies": {
+    "supabase": "^2.109.1",
+    "typescript": "^5.9.3"
+  }
+}
