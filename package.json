@@ -2,6 +2,13 @@
   "name": "rua",
   "version": "0.1.0",
   "private": true,
+  "description": "Plataforma de corrida livre. De todos, para sempre.",
+  "license": "AGPL-3.0-or-later",
+  "homepage": "https://rua.run",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hojetemrua/rua.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
