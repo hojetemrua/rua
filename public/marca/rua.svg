@@ -1,0 +1,11 @@
+<!--
+  Logotipo do Rua, em curvas. Derivado de fonte licenciada.
+  NÃO está coberto pela AGPL do código; ver TRADEMARK.md.
+  A cor é o token de tinta (#0A0A0A); o projeto não tem modo escuro.
+  Atenção: comentário XML não aceita dois hifens seguidos.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1772.84 657.74" fill="#0A0A0A">
+  <path d="M0,0h262.07c203.49,0,312.43,85.3,312.43,244.6,0,116.13-68.86,188.07-198.35,212.74v15.42h135.66l64.75,184.99h-255.9l-58.58-190.13h-20.55v190.13H0V0ZM262.07,321.67c45.22,0,69.88-25.69,69.88-76.05s-24.66-76.05-69.88-76.05h-20.55v152.1h20.55Z"/>
+  <path d="M631.03,416.37V0h241.51v426.42c0,20.11,9.25,30.17,25.69,30.17s25.69-10.06,25.69-30.17V0h236.38v416.37c0,157.9-89.41,241.37-258.99,241.37s-270.29-83.48-270.29-241.37Z"/>
+  <path d="M1284.67,0h397.73l90.44,657.74h-243.57l-9.25-84.28h-98.66l-9.25,84.28h-217.88L1284.67,0ZM1503.58,417.25l-30.83-284.68h-17.47l-1.03,136.69-16.44,147.99h65.77Z"/>
+</svg>
