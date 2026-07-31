@@ -140,6 +140,11 @@ Expo deixam de poder esperar.
 | 08/08 | Motor de corrida funcionando | SQLite, segundo plano, pausa, voz, recuperação de queda |
 | 01/08 | Auth + shell das cinco abas | Pré-requisito de tudo no app |
 
+**Relógios entram no lançamento.** A avaliação do que isso exige — HealthKit,
+Health Connect, importação de arquivo, e por que a API da Garmin fica fora —
+está em `docs/relogios.md`. O item com data própria é o formulário de declaração
+de dado de saúde no Play Console, que é revisão com prazo.
+
 **O maior risco não é código: é a conta Apple Developer.** Enrollment como
 pessoa física sai em horas; como pessoa jurídica exige D-U-N-S e leva de duas a
 quatro semanas. Se ela ainda não existe e o registro for pelo CNPJ, a data cai
