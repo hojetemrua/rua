@@ -16,3 +16,6 @@ export * from "./aderencia";
 export * from "./zonas";
 export * from "./recordes";
 export * from "./polilinha";
+export * from "./importacao";
+export * from "./deduplicacao";
+export * from "./saude";

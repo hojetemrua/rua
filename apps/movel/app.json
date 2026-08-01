@@ -12,9 +12,13 @@
       "bundleIdentifier": "run.rua.app",
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": ["location"],
+        "UIBackgroundModes": [
+          "location",
+          "processing"
+        ],
         "NSLocationWhenInUseUsageDescription": "A Rua usa sua localização durante a corrida para medir distância, pace e traçado. Nada é gravado quando você não está correndo.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "A Rua usa sua localização durante a corrida para medir distância, pace e traçado. Nada é gravado quando você não está correndo."
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "A Rua usa sua localização durante a corrida para medir distância, pace e traçado. Nada é gravado quando você não está correndo.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -24,10 +28,45 @@
         "ACCESS_COARSE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION",
         "FOREGROUND_SERVICE",
-        "FOREGROUND_SERVICE_LOCATION"
+        "FOREGROUND_SERVICE_LOCATION",
+        "android.permission.health.READ_EXERCISE",
+        "android.permission.health.READ_EXERCISE_ROUTE",
+        "android.permission.health.READ_DISTANCE",
+        "android.permission.health.READ_HEART_RATE",
+        "android.permission.health.READ_TOTAL_CALORIES_BURNED",
+        "android.permission.health.READ_HEALTH_DATA_HISTORY",
+        "android.permission.health.WRITE_EXERCISE",
+        "android.permission.health.WRITE_DISTANCE"
       ]
     },
-    "plugins": ["expo-router"],
-    "experiments": { "typedRoutes": true }
+    "plugins": [
+      "expo-router",
+      "expo-document-picker",
+      [
+        "@kingstinct/react-native-healthkit",
+        {
+          "NSHealthShareUsageDescription": "A Rua lê as corridas que você gravou no relógio para não perder treino nenhum. Quando a corrida vem com o traçado, o mapa aparece; quando vem só com os números, a Rua diz isso na tela.",
+          "NSHealthUpdateUsageDescription": "A Rua grava aqui as corridas feitas no app, para o seu histórico continuar seu também fora da Rua.",
+          "background": true
+        }
+      ],
+      "react-native-health-connect",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 28,
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35
+          },
+          "ios": {
+            "deploymentTarget": "16.4"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

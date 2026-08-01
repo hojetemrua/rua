@@ -6,10 +6,13 @@
   "type": "module",
   "main": "./src/indice.ts",
   "types": "./src/indice.ts",
-  "exports": { ".": "./src/indice.ts" },
+  "exports": {
+    ".": "./src/indice.ts"
+  },
   "scripts": {
     "tipos": "tsc --noEmit",
-    "gerar-tipos": "supabase gen types typescript --project-id meqlshmxfzvpctaieopj --schema public > src/banco.ts"
+    "gerar-tipos": "supabase gen types typescript --project-id meqlshmxfzvpctaieopj --schema public > src/banco.gerado.ts",
+    "teste-policies": "node testes/policies.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8"
